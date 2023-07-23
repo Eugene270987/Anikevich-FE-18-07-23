@@ -25,7 +25,6 @@ a:active {
 
 a,
 a:visited {
-  color: inherit;
   text-decoration: none;
   background-color: transparent;
 }
@@ -65,11 +64,6 @@ ol li {
 img {
   display: block;
   border-style: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-size: inherit;
-  font-weight: 400;
 }
 
 /*--------------------------------FORM-------------------------------------------------------*/
