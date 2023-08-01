@@ -1,8 +1,6 @@
 // Вивести таблицю множення на 7
 
 let userDigit;
-let digitString = "";
-
 let minValue = 1;
 let maxValue = 10;
 
@@ -15,13 +13,12 @@ do {
 } while (userDigit !== 7);
 
 for (let i = minValue; i <= maxValue; i++) {
-    if (i < maxValue) {
-        digitString += `${i*userDigit}, `;
-    } else {
-        digitString += `${i*userDigit}`;
-    }
+    let tableFor7 = userDigit * i;
+    console.log(`${userDigit} * ${i} = ${tableFor7}`);
 }
 
-alert(digitString);
 
-// // DONE
+
+// DONE
+
+//RE-DONE

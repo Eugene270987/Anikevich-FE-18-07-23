@@ -13,13 +13,16 @@ do {
 } while (minValue > userDigit || userDigit > maxValue);
 
 for (let i = minValue; i <= maxValue; i++) {
+    let squareNumber = i**2;
     if (i < maxValue) {
-        digitString += `${i**2}, `;
+        digitString += `${squareNumber}, `;
     } else {
-        digitString += `${i**2}`;
+        digitString += `${squareNumber}`;
     }
 }
 
 alert(digitString);
 
 // DONE
+
+//RE-DONE

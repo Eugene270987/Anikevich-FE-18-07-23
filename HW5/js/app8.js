@@ -6,9 +6,7 @@ let maxValue = 200;
 let digitString = "";
 
 for (let i = minValue; i <= maxValue; i++) {
-    if( i % 3) {
-        digitString += "";
-    } else {
+    if( i % 3 === 0) {
         digitString += `${i} `;
     }
 }
@@ -16,4 +14,6 @@ for (let i = minValue; i <= maxValue; i++) {
 console.log(digitString);
 
 // DONE
+
+// RE-DONE
 
