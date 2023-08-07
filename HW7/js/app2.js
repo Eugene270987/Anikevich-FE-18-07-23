@@ -6,6 +6,12 @@ let arr = [16,-37,54,-4,72,-56,47,4,-16,25,-37,46,4,-51,27,-63,4,-54,76,-4,12,-3
 //-------------------------------------Знайти суму парних позитивних елементів.---------------------------------------
 // ------------------------------------Знайти суму непарних позитивних елементів.-------------------------------------
 // ------------------------------------Знайти добуток позитивних елементів.-------------------------------------------
+// -------------------------------------Знайти мінімальний елемент масиву та його порядковий номер.--------------------
+// -------------------------------------Знайти максимальний елемент масиву та його порядковий номер.-------------------
+let minElement = arr[0];
+let minElementIndex = 0;
+let maxElement = arr[0];
+let maxElementIndex = 0;
 let negativeQuantity = 0;
 let oddPositiveQuantity = 0;
 let evenPositiveQuantity = 0;
@@ -26,22 +32,6 @@ for (let i = 0; i < arr.length; i++) {
     } else{
         negativeQuantity ++;
     }
-}
-console.log('The quantity of negative elements is: ', negativeQuantity);
-console.log('The quantity of odd positive elements is: ', oddPositiveQuantity);
-console.log('The quantity of even positive elements is: ', evenPositiveQuantity);
-console.log('The sum of even positive elements is: ', evenPositiveSum);
-console.log('The sum of odd positive elements is: ', oddPositiveSum);
-console.log('The multiplication sum of all positive elements is: ', multiplyPositiveSum);
-
-// -------------------------------------Знайти мінімальний елемент масиву та його порядковий номер.--------------------
-// -------------------------------------Знайти максимальний елемент масиву та його порядковий номер.-------------------
-let minElement = arr[0];
-let minElementIndex = 0;
-let maxElement = arr[0];
-let maxElementIndex = 0;
-
-for (let i = 1; i < arr.length; i++) {
     if (arr[i] < minElement) {
         minElement = arr[i];
         minElementIndex = i;
@@ -52,11 +42,16 @@ for (let i = 1; i < arr.length; i++) {
         }
     }
 }
+console.log('The quantity of negative elements is: ', negativeQuantity);
+console.log('The quantity of odd positive elements is: ', oddPositiveQuantity);
+console.log('The quantity of even positive elements is: ', evenPositiveQuantity);
+console.log('The sum of even positive elements is: ', evenPositiveSum);
+console.log('The sum of odd positive elements is: ', oddPositiveSum);
+console.log('The multiplication sum of all positive elements is: ', multiplyPositiveSum);
 console.log('The smallest element is: ', minElement);
 console.log('The smallest element index is: ', minElementIndex);
 console.log('The biggest element is: ', maxElement);
 console.log('The biggest element index is: ', maxElementIndex);
-
 //--------------------------------------Знайти найбільший серед елементів масиву, решту занулити.----------------------
 for (let i = 0; i < arr.length; i++) {
     if (arr[i] !== maxElement) {
