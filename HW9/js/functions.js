@@ -4,13 +4,15 @@ function showProducts() {
     }
 }
 
+// Первый вариант
+
+/*
 let productNumber;
 
 function getProductNumber () {
     do {
         productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
     } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
-    return productNumber;
 }
 
 let productAmount;
@@ -19,8 +21,29 @@ function getProductAmount () {
     do {
         productAmount = parseInt(prompt('Enter products amount:'));
     } while(productAmount < 1 || isNaN(productAmount));
+}
+
+*/
+
+// -------------------------------------------------------------------------
+// Второй вариант
+
+const getProductNumber = function () {
+    let productNumber;
+    do {
+        productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
+    } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
+    return productNumber;
+}
+
+const getProductAmount = function () {
+    let productAmount;
+    do {
+        productAmount = parseInt(prompt('Enter products amount:'));
+    } while(productAmount < 1 || isNaN(productAmount));
     return productAmount;
 }
+// --------------------------------------------------
 
 let initialPrice;
 let finalPrice;
