@@ -3,7 +3,7 @@ const discount = 20;
 const discountValue = (100 - discount) / 100;
 
 showProducts();
-getProductNumber (productNumber);
-getProductAmount (productAmount);
+getProductNumber ();
+getProductAmount ();
 const selectedProduct = products[productNumber - 1];
-showPrice (initialPrice, finalPrice);
+showPrice ();

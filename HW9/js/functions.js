@@ -25,7 +25,7 @@ function getProductAmount () {
 let initialPrice;
 let finalPrice;
 
-function showPrice (initialPrice, finalPrice) {
+function showPrice () {
     initialPrice = selectedProduct.price * productAmount;
     console.log('Price: $', initialPrice);
     if (initialPrice >= startDiscountFrom) {
