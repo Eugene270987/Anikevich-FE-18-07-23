@@ -1,13 +1,15 @@
-const startDiscountFrom = 10000;
-const discount = 20;
-const discountValue = (100 - discount) / 100;
 
 showProducts();
-// -----------------------------
-// getProductNumber ();
-// getProductAmount ();
-// -----------------------------------
-const productNumber = getProductNumber();
-const productAmount = getProductAmount();
-const selectedProduct = products[productNumber - 1];
-showPrice ();
+
+const productNumber = getNumericValue('Enter product number which you wanna buy:', products.length);
+
+const productAmount = getNumericValue('Enter products amount:');
+
+const selectedProduct = getProduct(productNumber);
+
+calculateAndShowPrice(selectedProduct, productAmount);
+
+
+
+
+

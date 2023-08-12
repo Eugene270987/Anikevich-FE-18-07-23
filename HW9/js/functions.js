@@ -4,55 +4,42 @@ function showProducts() {
     }
 }
 
-// Первый вариант
-
-/*
-let productNumber;
-
-function getProductNumber () {
+function getNumericValue(text, maxValue) {
+    let value;
     do {
-        productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
-    } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
+        value = parseInt(prompt(text));
+    } while (value < 1 || isNaN(value) || (maxValue && value > maxValue));
+
+    return value;
 }
 
-let productAmount;
-
-function getProductAmount () {
-    do {
-        productAmount = parseInt(prompt('Enter products amount:'));
-    } while(productAmount < 1 || isNaN(productAmount));
+function getProduct(number) {
+    return products[number - 1];
 }
 
-*/
+function calculateAndShowPrice(product, amount) {
+    let price = getPrice(product.price, amount);
+    console.log("Price: $", price);
 
-// -------------------------------------------------------------------------
-// Второй вариант
-
-const getProductNumber = function () {
-    let productNumber;
-    do {
-        productNumber = parseInt(prompt('Enter product number which you wanna buy:'));
-    } while(productNumber < 1 || productNumber > products.length || isNaN(productNumber));
-    return productNumber;
-}
-
-const getProductAmount = function () {
-    let productAmount;
-    do {
-        productAmount = parseInt(prompt('Enter products amount:'));
-    } while(productAmount < 1 || isNaN(productAmount));
-    return productAmount;
-}
-// --------------------------------------------------
-
-let initialPrice;
-let finalPrice;
-
-function showPrice () {
-    initialPrice = selectedProduct.price * productAmount;
-    console.log('Price: $', initialPrice);
-    if (initialPrice >= startDiscountFrom) {
-        finalPrice = initialPrice * discountValue;
-        console.log('Congrats! You got a discount, the final price is $' + finalPrice);
+    if (isDiscountNeeded(price)) {
+        price = getPriceWithDiscount(price);
+        console.log("Congrats! You got a discount, the final price is $ " + price);
     }
 }
+
+function getPrice(price, amount) {
+    return price * amount;
+}
+
+function isDiscountNeeded(price) {
+    const startDiscountFrom = 10000;
+    return price >= startDiscountFrom;
+}
+
+function getPriceWithDiscount(price) {
+    const discount = 20;
+    const discountValue = (100 - discount) / 100;
+    return  price * discountValue;
+}
+
+
