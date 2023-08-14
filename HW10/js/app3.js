@@ -10,11 +10,11 @@ function getArr(length) {
 
     return value;
 }
-function userArr() {
+function generateUserArr(outerLength, innerLength) {
     const arr = [];
-    for (let i = 0; i < userLength1; i++) {
+    for (let i = 0; i < outerLength; i++) {
         const innerArr = [];
-        for (let y = 0; y < userLength2; y++) {
+        for (let y = 0; y < innerLength; y++) {
             const userValue = parseInt(prompt(`Enter the number of element [${i}][${y}]: `));
             innerArr.push(userValue);
         }
@@ -23,10 +23,10 @@ function userArr() {
     return arr;
 }
 
-const userLength1 = getArr('Enter the number of elements');
-const userLength2 = getArr('Enter the number of sub-elements');
+const userOuterLength = getArr('Enter the number of elements');
+const userInnerLength = getArr('Enter the number of sub-elements');
 
-const finalArray = userArr();
+const finalArray = generateUserArr(userOuterLength, userInnerLength);
 
 console.log(finalArray);
 
