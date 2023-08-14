@@ -9,7 +9,3 @@ const selectedProduct = getProduct(productNumber);
 
 calculateAndShowPrice(selectedProduct, productAmount);
 
-
-
-
-
