@@ -1,14 +1,44 @@
-// Дано два різні числа. Визначити, яке з них більше, а яке менше.
+/*
+ Реалізуйте функцію removeElement(array, item), щоб видалити елемент item з масиву
+ array.
+*/
+function getValue (digit) {
+    let value;
+    do {
+        value = parseInt((prompt(digit)));
+    } while (isNaN(value));
 
-let digit1 = parseInt(prompt('Enter your first digit'));
-let digit2 = parseInt(prompt('Enter your second digit'));
-
-if (digit1 > digit2) {
-    alert('digit1 is bigger');
-} else if (digit1 === digit2) {
-    alert('Both digits are equals');
-} else {
-    alert('digit1 is lesser');
+    return value;
 }
 
+function createArr (value) {
+    const userArr = [];
+    for (let i = 0; i < value; i++) {
+      userArr.push(getValue(`Enter the digit for element: ${i + 1}`));
+    }
+    return userArr;
+}
+
+function deleteDigit (array, item) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === item) {
+            array.splice(i, 1);
+        }
+    }
+    return array;
+}
+
+const userArrayLength = getValue('Enter the number of elements in the array: ');
+const startUserArr = createArr(userArrayLength);
+
+console.log(startUserArr);
+
+const digitToDelete = getValue('Enter the number you would like to delete: ');
+deleteDigit(startUserArr, digitToDelete);
+console.log(startUserArr);
+
 // DONE
+
+
+
+

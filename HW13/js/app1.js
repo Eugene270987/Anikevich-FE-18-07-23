@@ -1,28 +1,33 @@
-// Вивести на сторінку в один рядок через кому числа від 10 до 20
-let userDigit;
-let digitString = "";
+/*
+The ladder (сходи) – об'єкт, який дозволяє підійматися вгору та спускатися:
+ */
 
-// Трохи ускладнимо завдання :)
-// Користувач має ввести число від 10 до 20. І після вводу, в алерті
-// він побачить в рядок цифри, від 10 до 20. Якшо він введе менше 10, або більше 20, то
-// він знову побачить вікно з полем вводу необхідних даних
-let minValue = 10;
-let maxValue = 20;
-
-do {
-    userDigit = parseInt(prompt('Enter your digit from ' + minValue + ' to ' + maxValue));
-} while (minValue > userDigit || userDigit > maxValue);
-
-
-for (let i = minValue; i <= maxValue; i++) {
-    if (i < maxValue) {
-        digitString += `${i}, `;
-    } else {
-        digitString += `${i}`;
+let ladder = {
+    step: 0,
+    up: function () {
+        this.step++;
+        return this;
+    },
+    down: function () {
+        this.step--;
+        return this;
+    },
+    showStep: function () { // показує теперішню сходинку
+        alert(this.step);
+        return this;
     }
-}
+};
 
-alert(digitString);
+// Тепер, якщо нам потрібно зробити кілька послідовних викликів, ми можемо виконати це так:
 
+/*ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep(); // 1*/
 
-// DONE
+//Змініть код методів up, down і showStep таким чином, щоб їх виклик можна було зробити
+// по ланцюжку, наприклад:
+
+ladder.up().down().down().showStep();
+
+//DONE
