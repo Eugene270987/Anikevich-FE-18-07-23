@@ -1,14 +1,38 @@
-// Вивести числа від 20 до 30 через пропуск використовуючи крок 0,5 (20 20,5 21 21,5….)
+// Реалізуйте функцію generateKey(length, characters), що повертає рядок випадкових символів із
+// набору characters довжиною length.
+// Наприклад
+// const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+// const key = generateKey(16, characters);
+// console.log(key); // eg599gb60q926j8i
 
-let minValue = 20;
-let maxValue = 30;
+'use strict'
 
-let stringNumbers = "";
+const getKeyLength = someValue => {
+    let value;
+    do {
+        value = parseInt(prompt(someValue));
+    } while (isNaN(value) || value <= 0);
 
-for (let i = minValue; i <= maxValue; i = i + 0.5) {
-    stringNumbers+=`${i} `;
+    return value;
 }
 
-console.log(stringNumbers);
+const generateKey = (length, characters) => {
+    let key = '';
+    for (let i = 0; i < length; i++) {
+        let elementIndex;
+        elementIndex = Math.floor(Math.random() * characters.length);
+        key += characters[elementIndex];
+    }
+    return key;
+}
 
-// DONE
+const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+const keyLength = getKeyLength(`Please, enter your key length: `);
+
+const userKey = generateKey(keyLength, characters);
+
+console.log(userKey);
+
+
+
