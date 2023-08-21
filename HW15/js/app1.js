@@ -1,44 +1,51 @@
-// Створити масив, довжину та елементи якого задає користувач. Потім відсортувати масив за зростанням. Потім видалити елементи з масиву з 2 по 4 (включно).
-// По мірі змін виводити вміст масиву на сторінку.
+/*
+Вам потрібно написати функцію, яка як параметр приймає функцію і додає їй можливість кешувати дзвінки.
+Ідея полягає в тому, що при виклику функції з однаковими аргументами немає сенсу викликати функцію щоразу, достатньо
+зберігати дані про результати виклику.
+Зберігати потрібно останні 10 дзвінків.*/
 
 
+function createCachedFunction(originalFunction, cacheLength = 10) {
+    const cache = new Map();
+    const recentCalls = [];
 
+    return function (...args) {
+        const argsKey = JSON.stringify(args);
 
-// Создаем переменную - это длина массива, которую определяет сам пользователь - количество элементов массива.
-let arrLength = parseInt(prompt('Enter the number of elements in this array (5 or more): '));
+        if (cache.has(argsKey)) {
+            console.log('Using cached result...');
 
-// Пишем условие. В условии сказано: Если пользователь нажмет "отмена", или же длина массива (число элементов массива)
-// будет меньше  5, то его попросят ввести корректное число.
-// В противном случае, если он все вводит правильно - создаем пустой массив, в который мы позднее с каждым
-// циклом будем помещать значение элементов массива!
-if (isNaN(arrLength) || arrLength < 5) {
-    prompt('Please, enter correct number of elements: ');
-} else {
-    let userArray = [];
-    // Мы не закрываем условие, внутри else - где создается пустой массив, пишем далее:
-    // Цикл для количества элементов - то есть, сколько раз пользователь должен ввести
-    // числа. Создаем переменную userElements.
+            const index = recentCalls.indexOf(argsKey);
 
-    // И с каждой итерацией мы пушим этот элемент в наш массив userArray.
-    for (let i = 0; i < arrLength; i++) {
-        let userElements = prompt('Enter the array element number: ' + (i + 1) + "");
-        userArray.push(userElements);
-    }
-    // В алерте, же, мы выведем элементы массива через , (через метод join)
-    // В алерте
-    alert('Your array is:' + userArray.join(', '));
+            recentCalls.splice(index, 1);
+            recentCalls.push(argsKey);
 
-    // Сортировка массива по возростанию с использованием функции для корректного отображения.
-    alert('Your array is: ' + userArray.sort(function compareNumbers(a, b) {
-        return a - b;
-    }));
-    // Покажем элементы, которые мы удалим из цикла
-    console.log(String(userArray.splice(2, 3)));
-    // Выведем числа, которые остались в массиве, в консоли, в строку!
-    console.log('Elements left in the array: ', String(userArray));
+            return cache.get(argsKey);
+        }
+
+        const result = simpleCalc(...args);
+
+        if (recentCalls.length >= cacheLength) {
+            const oldestArgsKey = recentCalls.shift();
+            cache.delete(oldestArgsKey);
+        }
+
+        recentCalls.push(argsKey);
+        cache.set(argsKey, result);
+
+        console.log('Calculating and caching result...');
+        return result;
+    };
 }
 
-// DONE
+function simpleCalc(n) {
+    console.log(`Making calculation for ${n}`);
+    return n * 3;
+}
 
+const cachedExpensiveCalculation = createCachedFunction(simpleCalc(), 10);
 
-
+console.log(cachedExpensiveCalculation(5));
+console.log(cachedExpensiveCalculation(5));
+console.log(cachedExpensiveCalculation(10));
+console.log(cachedExpensiveCalculation(10));
