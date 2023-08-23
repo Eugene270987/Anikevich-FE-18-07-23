@@ -1,0 +1,28 @@
+/*App1*/
+button{
+    display: block;
+}
+.wrapper,
+.btn__wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.wrapper{
+    gap: 100px;
+}
+
+.btn{
+    margin-top: 10px;
+}
+.text{
+    display: none;
+}
+
+/*App2*/
+.btn__wrapper{
+    gap: 15px;
+}
+.btn__input,
+.btn__follow{
+    max-width: 120px;
+}
