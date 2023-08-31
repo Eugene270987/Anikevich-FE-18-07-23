@@ -1,30 +1,33 @@
-/*
-Реалізувати рекурсивну функцію, яка зводить число в ступінь.
-Число, яке потрібно звести в ступінь, передається як перший аргумент у функцію
-Ступінь передається як другий аргумент у функцію
-Назвати функцію pow(num, degree);
-*/
+'use strict'
 
-function getValue (digit) {
-    let value;
-    do {
-        value = parseInt((prompt(digit)));
-    } while (value < 0 || isNaN(value));
+showCategories();
 
-    return value;
-}
-function pow(num, degree) {
-  if (degree === 0) {
-    return 1;
-  } else {
-      return num * pow(num, degree - 1);
-  }
-}
+document.getElementById('left').addEventListener('click', event => {
+    const infoBlock = document.getElementById('right');
+    infoBlock.innerHTML = '';
+    if (event.target.nodeName === 'DIV') {
+        const categoryKey = event.target.getAttribute('data-category');
+        const categoryProducts = categories[categoryKey].products;
+        showProducts(categoryProducts, categoryKey);
+    }
+});
 
-const userFreeDigit = getValue('Enter the digit you would like to exponentiate: ');
-const userExponent = getValue('Enter your exponent: ');
 
-const result = pow(userFreeDigit, userExponent);
-console.log(`The result is: ${result}`);
+document.getElementById('center').addEventListener('click', event => {
+    if (event.target.nodeName === 'DIV') {
+        const productId = event.target.getAttribute('data-product');
+        const categoryKey = event.target.getAttribute('data-category');
 
-//DONE
+        const product = categories[categoryKey].products.find(product => product.id == productId);
+
+        showInfo(product);
+    }
+});
+
+document.getElementById('right').addEventListener('click', event => {
+    if (event.target.nodeName === 'BUTTON') {
+        buyProduct(event.target, document.body);
+    }
+});
+
+
