@@ -1,0 +1,61 @@
+main{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+label{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+input,
+textarea{
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+textarea{
+    resize: none;
+}
+
+#btn{
+    display: flex;
+    padding: 5px 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: tomato;
+    border-radius: 10px;
+    margin: 0 auto;
+    cursor: pointer;
+    max-width: 100px;
+    width: 100%;
+}
+
+table{
+    margin: 0 auto;
+}
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+td{
+    padding: 20px;
+}
+
+.hidden{
+    display: none;
+}

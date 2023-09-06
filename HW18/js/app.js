@@ -25,9 +25,18 @@ document.getElementById('center').addEventListener('click', event => {
 });
 
 document.getElementById('right').addEventListener('click', event => {
+    const parent = document.getElementById('main');
+
     if (event.target.nodeName === 'BUTTON') {
-        buyProduct(event.target, document.body);
+        buyProduct(event.target, parent);
     }
 });
+
+const showFormBtn = document.getElementById('btn');
+
+showFormBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    validateForm();
+})
 
 

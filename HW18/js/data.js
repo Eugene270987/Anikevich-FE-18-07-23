@@ -65,3 +65,13 @@ const categories ={
         ],
     }
 }
+
+const cities = {
+    ky: 'Kyiv',
+    lv: 'Lviv',
+    kh: 'Kharkiv',
+    dn: 'Dnipro',
+    od: 'Odessa',
+    my: 'Mykolayiv',
+};
+

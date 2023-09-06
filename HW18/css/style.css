@@ -1,5 +1,5 @@
 body{
-    font-size: 30px;
+    font-size: 24px;
     box-sizing: border-box;
 }
 #main{
@@ -7,6 +7,8 @@ body{
     gap: 20px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
 }
 
 #main > div{
@@ -17,13 +19,94 @@ body{
 
 .modal{
     padding: 20px;
-    max-width: 250px;
+    max-width: 750px;
     width: 100%;
-    transform: translate(-50%);
+    text-align: center;
     background-color: goldenrod;
     border-radius: 10px;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    transform: scale(0);
+    transition: transform 0.5s ease-in-out;
 }
+
+.modal-open{
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: scale(1) translateY(-50%);
+}
+
+form{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    max-width: inherit;
+    width: 100%;
+}
+
+label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+
+input[type="text"],
+textarea,
+select,
+#department,
+#number{
+    max-width: 250px;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+textarea{
+    resize: none;
+    min-height: 100px;
+}
+.hidden{
+    display: none;
+}
+
+.required{
+    border: 1px solid red;
+}
+
+.required::placeholder{
+    color: red;
+}
+
+.required__text{
+    color: red;
+}
+
+#btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    max-width: 180px;
+    width: 100%;
+    background-color: tomato;
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+
+    &:hover{
+        background-color: darkslateblue;
+    }
+}
+
 

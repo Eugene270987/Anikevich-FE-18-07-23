@@ -40,14 +40,53 @@ function showInfo(product) {
 }
 function buyProduct(btnBuy, parentElement) {
     const modalElement = document.createElement('div');
-    modalElement.textContent = 'Thanks for buying';
-    modalElement.classList.add('modal');
-    modalElement.style.textAlign = 'center';
-    parentElement.appendChild(modalElement);
+    const mainForm = document.forms[0];
 
-    setTimeout(() => {
-        parentElement.removeChild(modalElement);
-    }, 3000);
+    modalElement.textContent = 'Fill in the following form';
+    modalElement.style.textAlign = 'center';
+    modalElement.classList.add('modal');
+
+    mainForm.classList.remove('hidden');
+
+    modalElement.classList.add('modal-open');
+
+    modalElement.appendChild(mainForm);
+    parentElement.appendChild(modalElement);
 }
+
+
+function validateForm() {
+    const mainForm = document.forms[0];
+    const mainFormElements = mainForm.elements;
+
+    const userNameInputs = mainFormElements.userName;
+
+    for (let i = 0; i < userNameInputs.length; i++) {
+        const userNameInput = userNameInputs[i];
+        const label = userNameInput.parentElement;
+
+        const existingErrorMsg = label.querySelector('.required__text');
+
+        if (userNameInput.value === '' && !existingErrorMsg) {
+            const errorMsg = document.createElement('span');
+
+            userNameInput.classList.add('required');
+            errorMsg.classList.add('required__text');
+            errorMsg.textContent = 'Please, fill in the field!';
+
+            label.appendChild(errorMsg);
+        } else if (userNameInput.value !== '' && existingErrorMsg) {
+            existingErrorMsg.remove();
+            userNameInput.classList.remove('required');
+        }
+    }
+
+    const selectField = mainFormElements.city;
+
+}
+
+
+
+
 
 

@@ -13,6 +13,74 @@
     <div id="left"></div>
     <div id="center"></div>
     <div id="right"></div>
+
+    <form action="#" method="post" class="hidden" id="mainForm">
+        <label>
+            Surname
+            <input type="text" name="userName" autocomplete="on" placeholder="Enter your surname">
+        </label>
+        <label>
+            Name
+            <input type="text" name="userName" autocomplete="on" placeholder="Enter your name">
+        </label>
+        <label>
+            Patronymic Name
+            <input type="text" name="userName" autocomplete="on" placeholder="Enter your patronymic name">
+        </label>
+        
+        <label>
+            City
+            <select>
+                <option value="any">-- Enter your city --</option>
+                <option value="ky">Kyiv</option>
+                <option value="lv">Lviv</option>
+                <option value="kh">Kharkiv</option>
+                <option value="dn">Dnipro</option>
+                <option value="od">Odessa</option>
+                <option value="my">Mykolayiv</option>
+            </select>
+        </label>
+
+        <label for="department">
+            Departments
+            <input list="departments" name="department" id="department">
+            <datalist id="departments">
+                <option value="Department #1,Kontraktova Ploshcha, 10"></option>
+                <option value="Department #2,Zhovtneva Ploshcha, 10"></option>
+                <option value="Department #3,Ploshcha Geroyiv Maidanu, 10"></option>
+                <option value="Department #4,Ploshcha Nezalejnosti, 10"></option>
+                <option value="Department #5,Soborna Ploshcha, 10"></option>
+                <option value="Department #6,Evropeiska Ploshcha, 10"></option>
+            </datalist>
+        </label>
+
+        <div class="payment__method">
+            <label>
+                Післяплата
+                <input type="radio" name="payment">
+            </label>
+            <label>
+                Оплата карткою
+                <input type="radio" name="payment">
+            </label>
+            <label>
+                Номер картки
+                <input type="text" disabled name="cardNumber">
+            </label>
+        </div>
+
+        <label>
+            Quantity
+            <input type="number" value="1" min="1" max="50" step="1" id="number">
+        </label>
+
+        <label>
+            Comment
+            <textarea name="comment" placeholder="Enter your comment"></textarea>
+        </label>
+
+        <button type="submit" id="btn">Save</button>
+    </form>
 </div>
 <script src="js/data.js"></script>
 <script src="js/functions.js"></script>
