@@ -56,11 +56,6 @@ function buyProduct(btnBuy, parentElement) {
 
 
 function validateForm() {
-    const mainForm = document.forms[0];
-    const mainFormElements = mainForm.elements;
-
-    const userNameInputs = mainFormElements.userName;
-
     for (let i = 0; i < userNameInputs.length; i++) {
         const userNameInput = userNameInputs[i];
         const label = userNameInput.parentElement;
@@ -79,10 +74,55 @@ function validateForm() {
             existingErrorMsg.remove();
             userNameInput.classList.remove('required');
         }
+
+        console.log(userNameInput.value);
     }
 
-    const selectField = mainFormElements.city;
+    if (city === 'any') {
+        if (!selectedCity.classList.contains('required')) {
+            selectedCity.classList.add('required');
+            const errorMsg = document.createElement('span');
+            errorMsg.textContent = 'Please, choose your city';
+            errorMsg.classList.add('required__text');
+            selectedCity.parentElement.appendChild(errorMsg);
+        }
+    } else {
+        if (selectedCity.classList.contains('required')) {
+            selectedCity.classList.remove('required');
+            if (existingErrorMsg) {
+                existingErrorMsg.remove();
+            }
+        }
+    }
 
+    if (depValue === "any") {
+        if (!selectedDep.classList.contains('required')) {
+            selectedDep.classList.add('required');
+            const errorMsg = document.createElement('span');
+            errorMsg.textContent = 'Please, choose a department';
+            errorMsg.classList.add('required__text');
+            selectedLabel.appendChild(errorMsg);
+        }
+    } else {
+        if (selectedDep.classList.contains('required')) {
+            selectedDep.classList.remove('required');
+            if(existingErrorMsg) {
+                existingErrorMsg.remove();
+            }
+        }
+    }
+
+
+    if(inputQuantity.value <= 0 || isNaN(inputQuantity.value)) {
+        if (!inputErrorMessage) {
+            const errorMsg = document.createElement('span');
+            errorMsg.textContent = 'Please, enter positive quantity';
+            errorMsg.classList.add('required__text');
+            quantityLabel.appendChild(errorMsg);
+        }
+    } else if (inputErrorMessage) {
+        inputErrorMessage.remove();
+    }
 }
 
 

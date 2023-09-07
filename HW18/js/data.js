@@ -67,6 +67,7 @@ const categories ={
 }
 
 const cities = {
+    any: '-- Enter your city --',
     ky: 'Kyiv',
     lv: 'Lviv',
     kh: 'Kharkiv',
@@ -74,4 +75,21 @@ const cities = {
     od: 'Odessa',
     my: 'Mykolayiv',
 };
+
+const departments = {
+    any: 'Please select a department',
+    1: 'Department #1,Kontraktova Ploshcha, 10',
+    2: 'Department #2,Zhovtneva Ploshcha, 10',
+    3: 'Department #3,Ploshcha Geroyiv Maidanu, 10',
+    4: 'Department #4,Ploshcha Nezalejnosti, 10',
+    5: 'Department #5,Soborna Ploshcha, 10',
+    6: 'Department #6,Evropeiska Ploshcha, 10',
+}
+
+const payments = {
+    after: 'Післяплата',
+    before: 'Оплата карткою',
+}
+
+
 

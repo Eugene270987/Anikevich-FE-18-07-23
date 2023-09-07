@@ -17,20 +17,20 @@
     <form action="#" method="post" class="hidden" id="mainForm">
         <label>
             Surname
-            <input type="text" name="userName" autocomplete="on" placeholder="Enter your surname">
+            <input id="userSurname" type="text" name="userName" autocomplete="on" placeholder="Enter your surname">
         </label>
         <label>
             Name
-            <input type="text" name="userName" autocomplete="on" placeholder="Enter your name">
+            <input id="userName" type="text" name="userName" autocomplete="on" placeholder="Enter your name">
         </label>
         <label>
             Patronymic Name
-            <input type="text" name="userName" autocomplete="on" placeholder="Enter your patronymic name">
+            <input id="userPatro" type="text" name="userName" autocomplete="on" placeholder="Enter your patronymic name">
         </label>
         
         <label>
             City
-            <select>
+            <select id="city">
                 <option value="any">-- Enter your city --</option>
                 <option value="ky">Kyiv</option>
                 <option value="lv">Lviv</option>
@@ -41,33 +41,28 @@
             </select>
         </label>
 
-        <label for="department">
+        <label>
             Departments
-            <input list="departments" name="department" id="department">
-            <datalist id="departments">
-                <option value="Department #1,Kontraktova Ploshcha, 10"></option>
-                <option value="Department #2,Zhovtneva Ploshcha, 10"></option>
-                <option value="Department #3,Ploshcha Geroyiv Maidanu, 10"></option>
-                <option value="Department #4,Ploshcha Nezalejnosti, 10"></option>
-                <option value="Department #5,Soborna Ploshcha, 10"></option>
-                <option value="Department #6,Evropeiska Ploshcha, 10"></option>
-            </datalist>
+            <select id="department">
+                <option value="any" disabled selected hidden>Please select a department</option>
+                <option value="1">Department #1,Kontraktova Ploshcha, 10</option>
+                <option value="2">Department #2,Zhovtneva Ploshcha, 10</option>
+                <option value="3">Department #3,Ploshcha Geroyiv Maidanu, 10</option>
+                <option value="4">Department #4,Ploshcha Nezalejnosti, 10</option>
+                <option value="5">Department #5,Soborna Ploshcha, 10</option>
+                <option value="6">Department #6,Evropeiska Ploshcha, 10</option>
+            </select>
         </label>
 
-        <div class="payment__method">
-            <label>
-                Післяплата
-                <input type="radio" name="payment">
-            </label>
-            <label>
-                Оплата карткою
-                <input type="radio" name="payment">
-            </label>
-            <label>
-                Номер картки
-                <input type="text" disabled name="cardNumber">
-            </label>
-        </div>
+
+        <label id="card">
+            Payment Methods
+            <select name="payment" id="paymentMethods">
+                <option value="after">Післяплата</option>
+                <option value="before">Оплата карткою</option>
+            </select>
+        </label>
+
 
         <label>
             Quantity
@@ -76,11 +71,61 @@
 
         <label>
             Comment
-            <textarea name="comment" placeholder="Enter your comment"></textarea>
+            <textarea id="comment" name="comment" placeholder="Enter your comment"></textarea>
         </label>
 
-        <button type="submit" id="btn">Save</button>
+        <button type="button" id="btn">Save</button>
     </form>
+    <table class="hidden" id="infoTable">
+        <thead>
+            <tr>
+                <th>
+                    Information
+                </th>
+                <th>
+                    Value
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="userSurnameLabel"></td>
+                <td id="userSurnameValue"></td>
+            </tr>
+            <tr>
+                <td id="userNameLabel"></td>
+                <td id="userNameValue"></td>
+            </tr>
+            <tr>
+                <td id="userPatroLabel"></td>
+                <td id="userPatroValue"></td>
+            </tr>
+            <tr>
+                <td id="userCityLabel"></td>
+                <td id="userCityValue"></td>
+            </tr>
+            <tr>
+                <td id="userDepLabel"></td>
+                <td id="userDepValue"></td>
+            </tr>
+            <tr>
+                <td id="userPaymentLabel"></td>
+                <td id="userPaymentValue"></td>
+            </tr>
+            <tr>
+                <td id="userCardLabel"></td>
+                <td id="userCardValue"></td>
+            </tr>
+            <tr>
+                <td id="productQuantityLabel"></td>
+                <td id="productQuantityValue"></td>
+            </tr>
+            <tr>
+                <td id="userCommentLabel"></td>
+                <td id="userCommentValue"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <script src="js/data.js"></script>
 <script src="js/functions.js"></script>
