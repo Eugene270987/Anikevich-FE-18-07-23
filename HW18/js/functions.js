@@ -39,94 +39,194 @@ function showInfo(product) {
     parentElement.appendChild(btnBuy);
 }
 function buyProduct(btnBuy, parentElement) {
-    const modalElement = document.createElement('div');
-    const mainForm = document.forms[0];
-
     modalElement.textContent = 'Fill in the following form';
     modalElement.style.textAlign = 'center';
     modalElement.classList.add('modal');
-
     mainForm.classList.remove('hidden');
-
     modalElement.classList.add('modal-open');
 
     modalElement.appendChild(mainForm);
     parentElement.appendChild(modalElement);
 }
 
-
-function validateForm() {
-    for (let i = 0; i < userNameInputs.length; i++) {
-        const userNameInput = userNameInputs[i];
-        const label = userNameInput.parentElement;
-
-        const existingErrorMsg = label.querySelector('.required__text');
-
-        if (userNameInput.value === '' && !existingErrorMsg) {
-            const errorMsg = document.createElement('span');
-
-            userNameInput.classList.add('required');
-            errorMsg.classList.add('required__text');
-            errorMsg.textContent = 'Please, fill in the field!';
-
-            label.appendChild(errorMsg);
-        } else if (userNameInput.value !== '' && existingErrorMsg) {
-            existingErrorMsg.remove();
-            userNameInput.classList.remove('required');
-        }
-
-        console.log(userNameInput.value);
+function showError(value, parent, error, errorText) {
+    if (error) {
+        parent.removeChild(error);
     }
 
-    if (city === 'any') {
-        if (!selectedCity.classList.contains('required')) {
-            selectedCity.classList.add('required');
-            const errorMsg = document.createElement('span');
-            errorMsg.textContent = 'Please, choose your city';
-            errorMsg.classList.add('required__text');
-            selectedCity.parentElement.appendChild(errorMsg);
-        }
-    } else {
-        if (selectedCity.classList.contains('required')) {
-            selectedCity.classList.remove('required');
-            if (existingErrorMsg) {
-                existingErrorMsg.remove();
-            }
-        }
+    if (value === 'any' || value === '') {
+        const errorSpan = document.createElement('span');
+        errorSpan.classList.add('required__text');
+        errorSpan.textContent = errorText;
+        parent.appendChild(errorSpan);
     }
 
-    if (depValue === "any") {
-        if (!selectedDep.classList.contains('required')) {
-            selectedDep.classList.add('required');
-            const errorMsg = document.createElement('span');
-            errorMsg.textContent = 'Please, choose a department';
-            errorMsg.classList.add('required__text');
-            selectedLabel.appendChild(errorMsg);
-        }
-    } else {
-        if (selectedDep.classList.contains('required')) {
-            selectedDep.classList.remove('required');
-            if(existingErrorMsg) {
-                existingErrorMsg.remove();
-            }
-        }
-    }
-
-
-    if(inputQuantity.value <= 0 || isNaN(inputQuantity.value)) {
-        if (!inputErrorMessage) {
-            const errorMsg = document.createElement('span');
-            errorMsg.textContent = 'Please, enter positive quantity';
-            errorMsg.classList.add('required__text');
-            quantityLabel.appendChild(errorMsg);
-        }
-    } else if (inputErrorMessage) {
-        inputErrorMessage.remove();
-    }
+    return value === 'any' || value === '';
 }
 
+function checkCardInput(cardInput, cardLabel) {
+    const cardValue = cardInput.value;
 
+    if (cardValue === '' || cardValue.length !== 16 || isNaN(cardValue)) {
+        const errorSpan = document.createElement('span');
+        errorSpan.classList.add('required__text');
+        errorSpan.textContent = 'Please, enter your valid card number.';
+        cardLabel.appendChild(errorSpan);
 
+        return false;
+    }
 
+    return true;
+}
 
+function checkInputs() {
+    let isValid = true;
+
+    const inputElements = [
+        { input: document.getElementById('userSurname'), errorText: 'Please, enter your Surname' },
+        { input: document.getElementById('userName'), errorText: 'Please, enter your Name' },
+        { input: document.getElementById('userPatro'), errorText: 'Please, enter your Patronymic Name' }
+    ];
+
+    inputElements.forEach(({ input, errorText }) => {
+        const label = input.parentElement;
+        const existingErrorSpan = label.querySelector('.required__text');
+
+        if (input.value === '') {
+            isValid = false;
+            showError(input.value, label, existingErrorSpan, errorText);
+        } else if (existingErrorSpan) {
+            label.removeChild(existingErrorSpan);
+        }
+    });
+
+    return isValid;
+}
+
+function checkSelect() {
+    let isValid = true;
+
+    const selectElements = [
+        { id: 'city', errorText: 'Enter your city' },
+        { id: 'department', errorText: 'Please select a department' },
+        { id: 'paymentMethods', errorText: 'Please select a valid payment method' }
+    ];
+
+    selectElements.forEach(({ id, errorText }) => {
+        const select = document.getElementById(id);
+        const label = select.parentElement;
+        const existingErrorSpan = label.querySelector('.required__text');
+
+        if (select.value === 'any' || select.value === '') {
+            isValid = false;
+            showError(select.value, label, existingErrorSpan, errorText);
+        } else if (existingErrorSpan) {
+            label.removeChild(existingErrorSpan);
+        }
+
+        if (id === 'paymentMethods' && select.value === 'before') {
+            cardInput.style.display = 'block';
+            cardInput.addEventListener('input', () => {
+                const cardErrorSpan = label.querySelector('.required__text');
+
+                if (cardErrorSpan) {
+                    label.removeChild(cardErrorSpan);
+                }
+
+                isValid = checkCardInput(cardInput, label);
+            });
+        } else if (id === 'paymentMethods' && select.value !== 'before') {
+            cardInput.style.display = 'none';
+            const cardErrorSpan = label.querySelector('.required__text');
+            if (cardErrorSpan) {
+                label.removeChild(cardErrorSpan);
+            }
+        }
+    });
+
+    return isValid;
+}
+
+function checkQuantity() {
+    let isValid = true;
+
+    const input = document.getElementById('number');
+    const label = input.parentElement;
+    const existingErrorSpan = label.querySelector('.required__text');
+    const inputValue = parseFloat(input.value);
+
+    if (inputValue <= 0 || isNaN(inputValue)) {
+        isValid = false;
+
+        if (!existingErrorSpan) {
+            const errorSpan = document.createElement('span');
+            errorSpan.classList.add('required__text');
+            errorSpan.textContent = 'Quantity must be a positive number';
+            label.appendChild(errorSpan);
+        }
+    } else if (existingErrorSpan) {
+        label.removeChild(existingErrorSpan);
+    }
+
+    return isValid;
+}
+
+function validateForm () {
+    const isInputValid = checkInputs();
+    const isSelectValid = checkSelect();
+    const isQuantityValid = checkQuantity();
+
+    return isInputValid && isSelectValid && isQuantityValid;
+}
+
+function showTable() {
+    const isValid = validateForm();
+
+    if (isValid) {
+        document.getElementById('userSurnameLabel').textContent = 'Surname:';
+        const surnameValue = document.getElementById('userSurname');
+        document.getElementById('userSurnameValue').textContent = surnameValue.value;
+
+        document.getElementById('userNameLabel').textContent = 'Name:';
+        const nameValue = document.getElementById('userName');
+        document.getElementById('userNameValue').textContent = nameValue.value;
+
+        document.getElementById('userPatroLabel').textContent = 'Patronymic:';
+        const patroValue = document.getElementById('userPatro');
+        document.getElementById('userPatroValue').textContent = patroValue.value;
+
+        const cityKey = mainFormElements.city.value;
+        const city = cities[cityKey];
+        document.getElementById('userCityLabel').textContent = 'City:';
+        document.getElementById('userCityValue').textContent = city;
+
+        const depKey = mainFormElements.department.value;
+        const department = departments[depKey];
+        document.getElementById('userDepLabel').textContent = 'Department:';
+        document.getElementById('userDepValue').textContent = department;
+
+        document.getElementById('userCardLabel').textContent = 'Card Number: ';
+        document.getElementById('userCardValue').textContent = cardInput.value;
+
+        document.getElementById('productQuantityLabel').textContent = 'Product Quantity: ';
+        document.getElementById('productQuantityValue').textContent = inputQuantity.value;
+
+        document.getElementById('userCommentLabel').textContent = 'User comment: ';
+        document.getElementById('userCommentValue').textContent = comment.value;
+    }
+
+    modalElement.textContent = 'Results';
+    modalElement.style.textAlign = 'center';
+    modalElement.classList.add('modal');
+
+    mainForm.classList.add('hidden');
+
+    mainTable.classList.remove('hidden');
+    mainTable.style.textAlign = 'center';
+
+    modalElement.classList.add('modal-open');
+    modalElement.appendChild(mainTable);
+
+    document.body.appendChild(modalElement);
+}
 
