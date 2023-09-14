@@ -12,7 +12,7 @@ function showUserInfo (user) {
     const actionsElement = createElement('div', container, '', {className: 'actions', 'data-id': user.id});
 
     createElement('input', actionsElement, '', {type: 'button', value: 'VIEW', 'data-type': 'view'}, {click: handleViewUserInfo});
-    createElement('input', actionsElement, '', {type: 'button', value: 'EDIT', 'data-type': 'edit'}, {});
+    createElement('input', actionsElement, '', {type: 'button', value: 'EDIT', 'data-type': 'edit'}, {click: handleEditUser});
     createElement('input', actionsElement, '', {type: 'button', value: 'DELETE', 'data-type': 'delete'}, {click: handleDeleteUser});
 }
 function showAddUserForm () {
@@ -42,7 +42,7 @@ function showAddUserForm () {
         parentSelector,
         '',
         {type: 'button', value: 'Save'},
-        {click: handleSaveUser});
+        {click: () => handleSaveUser()});
 }
 function handleSaveUser() {
     const formElements = document.forms[0].elements;
@@ -53,43 +53,47 @@ function handleSaveUser() {
     const email = formElements.email.value;
 
     const user = {
-        login,
-        name,
-        lastName,
-        email,
+        login: login,
+        name: name,
+        lastName: lastName,
+        email: email,
         id: Date.now()
     };
 
     const isValid = validate(user);
+    let hasErrors = false;
 
-    if (!isValid) {
-        showUserError(isValid);
-    } else {
-        saveUser(user);
-        cleanElement('#form form');
+    for (let key in isValid) {
+        const inputElement = document.querySelector(`input[name='${key}']`);
+        const value = isValid[key];
+        if (!value) {
+            showMessage(inputElement, 'error__message', 'Fill in the field correctly');
+            inputElement.classList.add('error');
+            hasErrors = true;
+        } else {
+            deleteMessage(inputElement, 'error');
+        }
     }
+
+    if (hasErrors) {
+        return;
+    }
+
+
+    saveUser(user);
+    cleanElement('#form form');
 }
+
 
 function validate(user) {
     return {
         login: !(user.login === '' || user.login === ' '),
         name: !(user.name === '' || user.name === ' ' || !isNaN(user.name)),
         lastName: !(user.lastName === '' || user.lastName === ' ' || !isNaN(user.lastName)),
-        email: !(user.email === '' || user.email.length === 1),
+        email: !(user.email === '' || !isNaN(user.email)),
     };
 }
 
-function showUserError(isValid) {
-    for (let key in isValid) {
-        const inputElement = document.querySelector(`input[name='${key}']`);
-        const value = isValid[key];
-        if (!value) {
-            showMessage(inputElement, 'error__message', `Fill in the field correctly`)
-        } else {
-            deleteMessage(inputElement, 'error')
-        }
-    }
-}
 function showMessage(element, className, errorMessage) {
     element.classList.add(className);
     element.placeholder = errorMessage;
@@ -134,31 +138,35 @@ function handleDeleteOrNot(userId) {
 // --При натисканні на кнопку “View” відкриваються дані користувача у блоці під списком
 function handleViewUserInfo (event) {
     const userId = getUserId(event);
-    showAddUserForm(userId);
+    showTable(userId);
 }
 
+function showTable() {
+    const parentSelector = document.querySelector('#users') ;
+    const gridContainer = createElement('div', parentSelector, '', {className: 'table__container'});
+
+    createElement('h2', gridContainer, 'Login: ' );
+    createElement('p', gridContainer, '' );
+    createElement('h2', gridContainer, 'Name: ');
+    createElement('p', gridContainer, '');
+    createElement('h2', gridContainer, 'Last Name: ');
+    createElement('p', gridContainer, '' );
+    createElement('h2', gridContainer, 'Email: ');
+    createElement('p', gridContainer, '');
+
+    createElement('input', gridContainer, '', {type: 'button', value: 'CLOSE', className: 'btn__close', 'data-type': 'close'})
+}
 
 //--При натисканні на кнопку “Edit” з'являється можливість редагувати дані в блоці під списком. Дані зберігаються при натисканні на кнопку “Save” та оновлюють дані у списку
 function handleEditUser (event) {
     const userId = getUserId(event);
-    showAddUserForm(userId);//????
+    showAddUserForm(userId);
 }
 
 
 
 
 
-
-
-
-
-/*
- if (user.login === '') {
-        return false;
-    }
-
-    return true;
-*/
 
 
 
