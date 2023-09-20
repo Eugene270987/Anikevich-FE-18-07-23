@@ -63,6 +63,52 @@ const categories ={
                 description: 'Super tab',
             }
         ],
+    },
+    medicines: {
+        name: 'Medicines',
+        products: [
+            {
+                id: 9,
+                name: 'Solpadeine',
+                price: 50,
+                description: 'A cool one',
+            },
+            {
+                id: 10,
+                name: 'Citramon',
+                price: 20,
+                description: 'Not a good one',
+            },
+            {
+                id: 11,
+                name: 'Spasmolgon',
+                price: 35,
+                description: 'A middle one',
+            }
+        ],
+    },
+    shoes: {
+        name: 'Shoes',
+        products: [
+            {
+                id: 12,
+                name: 'Nike',
+                price: 200,
+                description: 'Better one',
+            },
+            {
+                id: 13,
+                name: 'Adidas',
+                price: 180,
+                description: 'Best one',
+            },
+            {
+                id: 14,
+                name: 'Puma',
+                price: 100,
+                description: 'Good enough',
+            }
+        ],
     }
 }
 
@@ -90,10 +136,6 @@ const payments = {
     after: 'Післяплата',
     before: 'Оплата карткою',
 }
-
-
-
-
 
 
 

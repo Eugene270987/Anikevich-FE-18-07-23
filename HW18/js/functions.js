@@ -2,13 +2,68 @@
 function showCategories() {
     const parentElement = document.getElementById('left');
 
+    createElement('button', parentElement, 'MY ORDERS', {id: 'btn__orders'}, {click: cleanAndShowOrders});
+
     for (let categoryKey in categories) {
         const category = categories[categoryKey];
+        const element = createElement('div', parentElement, `${category.name}`, {className: 'category', 'data-category': categoryKey});
+        element.style.cursor = 'pointer';
+    }
+}
 
-        let element = document.createElement('div');
-        element.textContent = category.name;
-        element.setAttribute('data-category', categoryKey)
-        parentElement.appendChild(element);
+function cleanAndShowOrders () {
+    cleanCategories();
+    showUserOrders()
+}
+
+function cleanCategories () {
+    const categoryElements = document.querySelectorAll('.category');
+
+    for (let element of categoryElements) {
+        cleanElement(element);
+    }
+    const centerElement = document.getElementById('center');
+    const rightElement = document.getElementById('right');
+    cleanElement(centerElement);
+    cleanElement(rightElement);
+}
+
+function showUserOrders() {
+    const ordersData = JSON.parse(localStorage.getItem('orders'));
+
+    const centerBlock = document.getElementById('center');
+    centerBlock.innerHTML = '';
+
+    if (ordersData && ordersData.length > 0) {
+        for (let i = 0; i < ordersData.length; i++) {
+            const order = ordersData[i];
+            const orderInfo = `${order.productName} $${order.productPrice} Order Date: ${order.orderDate}`;
+            const infoContainer = createElement('div', centerBlock, orderInfo, { className: 'order', cursor: ongotpointercapture});
+            const removeButton = createElement('button', infoContainer, 'REMOVE', { type: 'button', id: 'btn__remove' });
+            removeButton.addEventListener('click', function () {
+                removeOrder(order);
+            });
+        }
+    } else {
+        createElement('div', centerBlock, 'No orders yet.');
+    }
+}
+
+function removeOrder(orderToRemove) {
+    const index = orders.findIndex(order => (
+        order.productName === orderToRemove.productName && order.productPrice === orderToRemove.productPrice && order.orderDate === orderToRemove.orderDate
+    ));
+
+    if (index !== -1) {
+        orders.splice(index, 1);
+        updateStorage();
+        const orderElements = document.querySelectorAll('.order');
+        orderElements.forEach(element => {
+            const text = element.textContent;
+            if (text.includes(`${orderToRemove.productName} $${orderToRemove.productPrice} Order Date: ${orderToRemove.orderDate}`)) {
+                element.remove();
+            }
+        });
     }
 }
 
@@ -17,216 +72,238 @@ function showProducts(products, category) {
     parentElement.innerHTML = '';
 
     for (let product of products) {
-        let element = document.createElement('div');
-        element.textContent = `${product.name} $${product.price}`;
-        element.setAttribute('data-product', product.id);
-        element.setAttribute('data-category', category);
-
-        parentElement.appendChild(element);
+        const element = createElement('div', parentElement, `${product.name} $${product.price}`, {'data-product': product.id, 'data-category': category});
+        element.style.cursor = 'pointer';
     }
 }
-
 function showInfo(product) {
     const parentElement = document.getElementById('right');
     parentElement.innerHTML = '';
 
-    let element = document.createElement('div');
-    element.textContent = `Name: ${product.name} Price: ${product.price} Description: ${product.description}`;
-    parentElement.appendChild(element);
+    const productName = product.name;
+    const productPrice = product.price;
 
-    const btnBuy = document.createElement('button');
-    btnBuy.textContent = 'Buy now';
-    parentElement.appendChild(btnBuy);
+    order.productName = productName;
+    order.productPrice = productPrice;
+
+    createElement('div', parentElement, `Name: ${product.name} Price: ${product.price} Description: ${product.description},`)
+    createElement('button', parentElement, 'BUY NOW', {id: 'btn'}, {click: showModal});
 }
-function buyProduct(btnBuy, parentElement) {
-    modalElement.textContent = 'Fill in the following form';
-    modalElement.style.textAlign = 'center';
-    modalElement.classList.add('modal');
-    mainForm.classList.remove('hidden');
-    modalElement.classList.add('modal-open');
+function createForm () {
+    const parentElement = document.querySelector('.my__modal');
+    const userForm = createElement('form', parentElement, '', {id: 'form'});
+    // NAME & SURNAME
+    const nameLabel = createElement('label', userForm, 'Enter your name: ') ;
+    createElement('input', nameLabel, '', {name: 'name', type: 'text', id: 'name__input', placeholder: 'Enter your name'})
+    const lastNameLabel = createElement('label', userForm, 'Enter your last name: ');
+    createElement('input', lastNameLabel, '', {name: 'name', type: 'text', id: "lastname__input", placeholder: 'Enter your last name'});
+    // SELECT CITY
+    const cityLabel = createElement('label', userForm, 'Select city ');
+    const citySelect = createElement('select', cityLabel, '', { id: 'city', name: 'city' });
 
-    modalElement.appendChild(mainForm);
-    parentElement.appendChild(modalElement);
-}
+    for (const cityKey in cities) {
+        const cityName = cities[cityKey];
+        createElement('option', citySelect, cityName, { value: cityKey });
+    }
+    // Select Department
+    const depLabel = createElement('label', userForm, 'Select department: ');
+    const depSelect = createElement('select', depLabel, '', { id: 'department', name: 'department' });
 
-function showError(value, parent, error, errorText) {
-    if (error) {
-        parent.removeChild(error);
+    for (const depKey in departments) {
+        const depName = departments[depKey];
+        createElement('option', depSelect, depName, { value: depKey, selected: depKey === 'any' });
+    }
+    // QUANTITY
+    const quantityLabel = createElement('label', userForm, 'Select quantity: ');
+    createElement('input', quantityLabel, '', { id: 'quantity', name: 'quantity', value: '1', type: 'number', min: '1', max: '50', step: '1'});
+    // ADD INFO
+    const textAreaLabel = createElement('label', userForm, 'Additional information: ');
+    createElement('textarea', textAreaLabel, '', {name: 'information', id: 'text__content', placeholder: 'Enter any info'});
+    //PAYMENT
+    const paymentLabel = createElement('label', userForm, 'Select method of payment: ');
+    const paymentSelect = createElement('select', paymentLabel, '', { id: 'payment', name: 'payment' });
+
+    for (const paymentKey in payments) {
+        const paymentName = payments[paymentKey];
+        createElement('option', paymentSelect, paymentName, { value: paymentKey });
     }
 
-    if (value === 'any' || value === '') {
-        const errorSpan = document.createElement('span');
-        errorSpan.classList.add('required__text');
-        errorSpan.textContent = errorText;
-        parent.appendChild(errorSpan);
-    }
+    const cardLabel = createElement('label', userForm, 'Enter card: ');
+    const cardInput = createElement('input', cardLabel, '', { type: 'text', name: 'cardInput', id: 'card__input', placeholder: 'Enter valid card number: XXXX-XXXX-XXXX-XXXX' });
 
-    return value === 'any' || value === '';
-}
-
-function checkCardInput(cardInput, cardLabel) {
-    const cardValue = cardInput.value;
-
-    if (cardValue === '' || cardValue.length !== 16 || isNaN(cardValue)) {
-        const errorSpan = document.createElement('span');
-        errorSpan.classList.add('required__text');
-        errorSpan.textContent = 'Please, enter your valid card number.';
-        cardLabel.appendChild(errorSpan);
-
-        return false;
-    }
-
-    return true;
-}
-
-function checkInputs() {
-    let isValid = true;
-
-    const inputElements = [
-        { input: document.getElementById('userSurname'), errorText: 'Please, enter your Surname' },
-        { input: document.getElementById('userName'), errorText: 'Please, enter your Name' },
-        { input: document.getElementById('userPatro'), errorText: 'Please, enter your Patronymic Name' }
-    ];
-
-    inputElements.forEach(({ input, errorText }) => {
-        const label = input.parentElement;
-        const existingErrorSpan = label.querySelector('.required__text');
-
-        if (input.value === '') {
-            isValid = false;
-            showError(input.value, label, existingErrorSpan, errorText);
-        } else if (existingErrorSpan) {
-            label.removeChild(existingErrorSpan);
-        }
-    });
-
-    return isValid;
-}
-
-function checkSelect() {
-    let isValid = true;
-
-    const selectElements = [
-        { id: 'city', errorText: 'Enter your city' },
-        { id: 'department', errorText: 'Please select a department' },
-        { id: 'paymentMethods', errorText: 'Please select a valid payment method' }
-    ];
-
-    selectElements.forEach(({ id, errorText }) => {
-        const select = document.getElementById(id);
-        const label = select.parentElement;
-        const existingErrorSpan = label.querySelector('.required__text');
-
-        if (select.value === 'any' || select.value === '') {
-            isValid = false;
-            showError(select.value, label, existingErrorSpan, errorText);
-        } else if (existingErrorSpan) {
-            label.removeChild(existingErrorSpan);
-        }
-
-        if (id === 'paymentMethods' && select.value === 'before') {
-            cardInput.style.display = 'block';
-            cardInput.addEventListener('input', () => {
-                const cardErrorSpan = label.querySelector('.required__text');
-
-                if (cardErrorSpan) {
-                    label.removeChild(cardErrorSpan);
-                }
-
-                isValid = checkCardInput(cardInput, label);
-            });
-        } else if (id === 'paymentMethods' && select.value !== 'before') {
+    cardLabel.style.display = 'none';
+    cardInput.style.display = 'none';
+    paymentSelect.addEventListener('change', function () {
+        const selectedPayment = paymentSelect.value;
+        if (selectedPayment === 'after') {
+            cardLabel.style.display = 'none';
             cardInput.style.display = 'none';
-            const cardErrorSpan = label.querySelector('.required__text');
-            if (cardErrorSpan) {
-                label.removeChild(cardErrorSpan);
-            }
+        } else {
+            cardLabel.style.display = 'flex';
+            cardInput.style.display = 'block';
         }
     });
-
-    return isValid;
+    //BUTTONS
+    const buttonContainer = createElement('div', userForm, '', {id: 'button__container'});
+    createElement('button', buttonContainer, 'CLOSE', {type: 'button', id: 'btn__close'}, {click: closeModal});
+    createElement('button', buttonContainer, 'SAVE', {type: 'button', id: 'btn__save'}, {click: showTable});
 }
+function createModal () {
+    const myModal = createElement('div', document.body, '', {className: 'my__modal'});
+    createElement('h2', myModal, 'Fill in the following form', {className: 'modal__title'});
+    createForm();
 
-function checkQuantity() {
-    let isValid = true;
-
-    const input = document.getElementById('number');
-    const label = input.parentElement;
-    const existingErrorSpan = label.querySelector('.required__text');
-    const inputValue = parseFloat(input.value);
-
-    if (inputValue <= 0 || isNaN(inputValue)) {
-        isValid = false;
-
-        if (!existingErrorSpan) {
-            const errorSpan = document.createElement('span');
-            errorSpan.classList.add('required__text');
-            errorSpan.textContent = 'Quantity must be a positive number';
-            label.appendChild(errorSpan);
-        }
-    } else if (existingErrorSpan) {
-        label.removeChild(existingErrorSpan);
+    return myModal;
+}
+function showModal (){
+    const modal = document.querySelector('.my__modal');
+    if(!modal) {
+        createModal();
     }
-
-    return isValid;
 }
-
-function validateForm () {
-    const isInputValid = checkInputs();
-    const isSelectValid = checkSelect();
-    const isQuantityValid = checkQuantity();
-
-    return isInputValid && isSelectValid && isQuantityValid;
+function closeModal () {
+    const modal = document.querySelector('.my__modal');
+    if (modal) {
+        modal.remove();
+    }
 }
 
 function showTable() {
-    const isValid = validateForm();
-
+    const isValid = validate();
     if (isValid) {
-        document.getElementById('userSurnameLabel').textContent = 'Surname:';
-        const surnameValue = document.getElementById('userSurname');
-        document.getElementById('userSurnameValue').textContent = surnameValue.value;
-
-        document.getElementById('userNameLabel').textContent = 'Name:';
-        const nameValue = document.getElementById('userName');
-        document.getElementById('userNameValue').textContent = nameValue.value;
-
-        document.getElementById('userPatroLabel').textContent = 'Patronymic:';
-        const patroValue = document.getElementById('userPatro');
-        document.getElementById('userPatroValue').textContent = patroValue.value;
-
-        const cityKey = mainFormElements.city.value;
-        const city = cities[cityKey];
-        document.getElementById('userCityLabel').textContent = 'City:';
-        document.getElementById('userCityValue').textContent = city;
-
-        const depKey = mainFormElements.department.value;
-        const department = departments[depKey];
-        document.getElementById('userDepLabel').textContent = 'Department:';
-        document.getElementById('userDepValue').textContent = department;
-
-        document.getElementById('userCardLabel').textContent = 'Card Number: ';
-        document.getElementById('userCardValue').textContent = cardInput.value;
-
-        document.getElementById('productQuantityLabel').textContent = 'Product Quantity: ';
-        document.getElementById('productQuantityValue').textContent = inputQuantity.value;
-
-        document.getElementById('userCommentLabel').textContent = 'User comment: ';
-        document.getElementById('userCommentValue').textContent = comment.value;
+        saveOrderDetails(order);
+        createTable();
     }
-
-    modalElement.textContent = 'Results';
-    modalElement.style.textAlign = 'center';
-    modalElement.classList.add('modal');
-
-    mainForm.classList.add('hidden');
-
-    mainTable.classList.remove('hidden');
-    mainTable.style.textAlign = 'center';
-
-    modalElement.classList.add('modal-open');
-    modalElement.appendChild(mainTable);
-
-    document.body.appendChild(modalElement);
 }
 
+function createTable() {
+    const form = document.getElementById('form');
+    const modal = document.querySelector('.my__modal');
+
+    modal.innerHTML = '';
+
+    createElement('h2', modal, 'USER DATA', { className: 'modal__title' });
+
+    const formElements = form.elements;
+
+    Array.from(formElements).forEach(element => {
+        if (element.tagName === 'SELECT') {
+            const selectedOptionText = element.options[element.selectedIndex].textContent;
+            createElement('div', modal, `${element.name}: ${selectedOptionText}`, {className: 'user__field'});
+        } else if( element.tagName !== 'BUTTON'){
+            createElement('div', modal, `${element.name}: ${element.value}`,{className: 'user__field'});
+        }
+    });
+
+    createElement('button', modal, 'OK', {type: 'button', id: 'btn__confirm'}, {click: closeModal});
+}
+
+function validateNameInput(input) {
+    const inputValue = input.value;
+    const pattern = /^[A-Za-z]+$/g;
+    const result = inputValue.match(pattern);
+    return Boolean(result);
+}
+
+function validateSelect(select) {
+    const selectedValue = select.value;
+    return selectedValue !== 'any';
+}
+
+function validateNumberInput(input) {
+    const inputValue = input.value;
+    const pattern = /^[1-9]\d*$/g;
+    const result = inputValue.match(pattern);
+    return Boolean(result);
+}
+
+function validateCardInput(input) {
+    const inputValue = input.value;
+    const pattern = /^(\d{4}-){3}\d{4}$/g;
+    const result = inputValue.match(pattern);
+    return Boolean(result);
+}
+
+function validate() {
+    const userInputs = document.querySelectorAll('input[name="name"]');
+    const selectElements = document.querySelectorAll('select');
+    const quantityInputs = document.querySelectorAll('input[type="number"]');
+    const cardInputs = document.querySelectorAll('input[id="card__input"]');
+    const paymentSelect = document.getElementById('payment');
+    const selectedPayment = paymentSelect.value;
+
+    let isValid = true;
+
+    for (let input of userInputs) {
+        if (!validateNameInput(input)) {
+            showError(input);
+            isValid = false;
+        } else {
+            removeError(input);
+        }
+    }
+
+    for (let select of selectElements) {
+        if (!validateSelect(select)) {
+            showError(select);
+            isValid = false;
+        } else {
+            removeError(select);
+        }
+    }
+
+    for (let input of quantityInputs) {
+        if (!validateNumberInput(input)) {
+            showError(input);
+            isValid = false;
+        } else {
+            removeError(input);
+        }
+    }
+
+    if (selectedPayment !== 'after') {
+        for (let input of cardInputs) {
+            if (!validateCardInput(input)) {
+                showError(input);
+                isValid = false;
+            } else {
+                removeError(input);
+            }
+        }
+    }
+
+    return isValid;
+}
+function showError(element) {
+    element.classList.add('element__error');
+}
+
+function removeError(element) {
+    element.classList.remove('element__error');
+}
+
+function updateStorage() {
+    localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+function saveOrderDetails (order) {
+    const newOrder = {
+        name: document.getElementById('name__input').value,
+        lastName: document.getElementById('lastname__input').value,
+        city: document.getElementById('city').value,
+        department: document.getElementById('department').value,
+        quantity: document.getElementById('quantity').value,
+        information: document.getElementById('text__content').value,
+        payment: document.getElementById('payment').value,
+        cardInput: document.getElementById('card__input').value,
+        productName: order.productName,
+        productPrice: order.productPrice * document.getElementById('quantity').value,
+    }
+
+    const orderDate = new Date().toLocaleString();
+
+    newOrder.orderDate = orderDate;
+
+    orders.push(newOrder);
+    updateStorage();
+}
