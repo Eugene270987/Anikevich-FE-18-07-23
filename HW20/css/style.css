@@ -17,7 +17,7 @@ body{
     margin-right: 5px;
 }
 
-#form form{
+#form{
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -73,13 +73,14 @@ body{
 .table__container{
     text-align: center;
     width: 300px;
-    height: 300px;
+    min-height: 300px;
     border: 1px solid black;
     background: gold;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    align-items: center;
 }
 
 .btn__close{
-  width: 100%;
+    width: 100%;
 }
