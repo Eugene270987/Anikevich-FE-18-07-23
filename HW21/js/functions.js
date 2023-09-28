@@ -32,6 +32,3 @@ function showPreviousSlide() {
     changeSlide();
     initAutoChange();
 }
-
-
-
