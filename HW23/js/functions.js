@@ -37,13 +37,13 @@ function toggleInfo(blockSelector, infoType, objKey) {
     if (!blockContent) {
         //DEFINE THE INITIAL PAGE TO BE SHOWN
         currentPage[infoType] = 1;
-        getMoreData(infoType, objKey, blockElement, 'show', currentPage[infoType]);
+        getData(infoType, objKey, blockElement, 'show', currentPage[infoType]);
     } else {
         removeShowClass(blockElement, 'show');
     }
 }
 
-function getMoreData(infoType, objKey, element, className, page) {
+function getData(infoType, objKey, element, className, page) {
     const API_BASE = 'https://swapi.dev/api/';
 
     if (isLoading[infoType] || page === null) {
@@ -72,7 +72,7 @@ function getMoreData(infoType, objKey, element, className, page) {
                     element,
                     'SHOW MORE',
                     { className: 'btn btn-danger my-4' },
-                    {click: () => getMoreData(infoType, objKey, element, className, currentPage[infoType])});
+                    {click: () => getData(infoType, objKey, element, className, currentPage[infoType])});
             } else {
                 createElement('p', element, 'No more data available.', { className: 'no-data-text' });
             }
