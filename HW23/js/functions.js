@@ -42,7 +42,6 @@ function toggleInfo(blockSelector, infoType, objKey) {
         removeShowClass(blockElement, 'show');
     }
 }
-
 function getData(infoType, objKey, element, className, page) {
     const API_BASE = 'https://swapi.dev/api/';
 
@@ -56,9 +55,11 @@ function getData(infoType, objKey, element, className, page) {
         .then(result => {
             const response = result.data;
             const objects = response.results.map(obj => obj[objKey]);
+
+            console.log(response);
             //CREATING A PARAGRAPH FOR EACH OBJECT NAME AND GIVING IT A CLASS
             objects.forEach(objectName => {
-                createElement('p', element, objectName, { className: 'object__item' });
+                createElement('p', element, objectName, {className: 'object__item', 'data-bs-toggle': 'modal', 'data-bs-target': '#myModal'});
             });
             //----DELETE THE BUTTON FROM THE PREVIOUS UPLOADED BLOCK
             const prevShowMoreButton = element.querySelector('.btn.btn-danger.my-4');
@@ -83,6 +84,38 @@ function getData(infoType, objKey, element, className, page) {
             //INCREASING PAGE NUMBER WHEN WE CLICK AGAIN 'SHOW MORE'
             currentPage[infoType]++;
         })
+}
+
+function createModal () {
+    const modal = createElement('div', '#main-section', '', {id: 'myModal', className: 'modal'});
+    const modalDialog = createElement('div', modal, '', {className: 'modal-dialog'});
+    const modalContent = createElement('div', modalDialog, '', {className: 'modal-content'});
+
+    const modalHeader = createElement('div', modalContent, '', {className: 'modal-header'});
+    createElement('h5', modalHeader, 'Brief information about', {className: 'modal-title'});
+    createElement('button', modalHeader, '', {type: 'button', className: 'btn-close', 'data-bs-dismiss': 'modal', 'aria-label': 'close'});
+
+    const modalBody = createElement('div', modalContent, '', {className: 'modal-body'});
+    createElement('p', modalBody, '', {id: 'modal-info'});
+
+    const modalFooter = createElement('div', modalContent, '', {className: 'modal-footer'});
+    createElement('button', modalFooter, 'OK', {type: 'button', className: 'btn btn-success', 'data-bs-dismiss': 'modal'});
+}
+
+function showModal () {
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.show();
+}
+
+function showDetailedData() {
+    const items = document.querySelectorAll('.object__item');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            const objectInfo = item.dataset.info;
+            showModal();
+        });
+    });
 }
 
 
