@@ -16,6 +16,11 @@ body{
     position: relative;
 }
 
+ul, li{
+    padding: 0;
+    margin: 0;
+}
+
 .btn-group{
     gap: 60px;
     padding-left: 20px;
@@ -51,18 +56,23 @@ body{
     color: white;
 }
 
-#myModal{
-    position: fixed;
-    top: 200px;
-    left: 50%;
-    transform: translate(-50%);
-}
-
 .modal-content{
     min-height: 500px;
     border: none;
     outline: none;
     text-align: center;
-    /*background: url("../img/modal.jpg") center / cover no-repeat;*/
+    background: url("../img/modal.jpg") center / cover no-repeat;
 }
 
+.modal-header{
+    color: chocolate;
+    font-weight: 700;
+}
+
+#modal-info{
+    gap: 10px;
+}
+.property__item{
+    color: crimson;
+    font-weight: 700;
+}

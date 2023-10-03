@@ -2,6 +2,8 @@
 
 createButtons();
 createInfoColumns ()
-showDetailedData();
 createModal();
+
+
+
 

@@ -1,5 +1,4 @@
 'use strict'
-//-----------CREATE BUTTON CONTAINER, BUTTONS, ADDING EVENTS ON CLICK
 function createButtons () {
     const parentElement = document.getElementById('main');
     const mainSection = createElement('section', parentElement, '', {id: 'main-section', className: 'container-xxl'});
@@ -12,7 +11,6 @@ function createButtons () {
     createElement('button', btnContainer, 'TRANSPORT', {type: 'button', className: 'btn btn-success rounded-pill'},
         {click: () => toggleInfo('.vehicles__block', 'vehicles', 'name')});
 }
-//--------CREATE BLOCKS FOR CONTENT-------------------
 function createInfoColumns () {
     const parentElement = document.getElementById('main-section');
 
@@ -21,28 +19,25 @@ function createInfoColumns () {
     createElement('div', infoRow, '', {className: 'planets__block col rounded border border-warning'});
     createElement('div', infoRow, '', {className: 'vehicles__block col rounded border border-success'});
 }
-//------ADD CLASS TO AN ELEMENT-------
 function addShowClass(element, className) {
     element.classList.add(className);
 }
-//------REMOVE CLASS TO AN ELEMENT-------
 function removeShowClass(element, className) {
     cleanElement(element);
     element.classList.remove(className);
 }
-//-------------------SHOWING/HIDING INFO WHEN CLICKING ANY OF THREE BUTTONS-------------------------------------
 function toggleInfo(blockSelector, infoType, objKey) {
     const blockElement = document.querySelector(blockSelector);
     const blockContent = blockElement.textContent;
     if (!blockContent) {
-        //DEFINE THE INITIAL PAGE TO BE SHOWN
         currentPage[infoType] = 1;
-        getData(infoType, objKey, blockElement, 'show', currentPage[infoType]);
+        getData(infoType, objKey, blockElement, 'show', currentPage[infoType], dataTypes);
     } else {
         removeShowClass(blockElement, 'show');
     }
 }
-function getData(infoType, objKey, element, className, page) {
+
+function getData(infoType, objKey, element, className, page, dataProp) {
     const API_BASE = 'https://swapi.dev/api/';
 
     if (isLoading[infoType] || page === null) {
@@ -53,78 +48,67 @@ function getData(infoType, objKey, element, className, page) {
 
     axios.get(`${API_BASE}${infoType}/?page=${page}`)
         .then(result => {
-            const response = result.data;
-            const objects = response.results.map(obj => obj[objKey]);
+            const res = result.data;
+            const response = result.data.results;
+            response.forEach(item => {
+                createElement('p', element, item.name, {
+                    className: 'object__item',
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#myModal',
+                    'data-type': `${infoType}`,
+                    'data-name': `${item.name}`
+                });
+            })
 
-            console.log(response);
-            //CREATING A PARAGRAPH FOR EACH OBJECT NAME AND GIVING IT A CLASS
-            objects.forEach(objectName => {
-                createElement('p', element, objectName, {className: 'object__item', 'data-bs-toggle': 'modal', 'data-bs-target': '#myModal'});
+            element.addEventListener('click', event => {
+                if (event.target.nodeName === 'P') {
+                    const listItemText = event.target.textContent;
+                    const item = response.find(item => item.name === listItemText);
+                    if (item) {
+                        document.querySelector(`#modal-info`).innerHTML = '';
+                        document.querySelector(`#modalTitle`).textContent = item.name;
+                        for (const key of dataProp[infoType]) {
+                            createElement(`li`,`#modal-info`,`${key}: ${item[key]}`,{className: 'property__item'})
+                        }
+                    }
+                }
             });
-            //----DELETE THE BUTTON FROM THE PREVIOUS UPLOADED BLOCK
             const prevShowMoreButton = element.querySelector('.btn.btn-danger.my-4');
             if (prevShowMoreButton) {
                 prevShowMoreButton.remove();
             }
-            //----CREATE BUTTON WHEN UPLOADING INFO FROM THE NEXT PAGE
-            if (response.next) {
+
+            if (res.next) {
                 createElement(
                     'button',
                     element,
                     'SHOW MORE',
-                    { className: 'btn btn-danger my-4' },
-                    {click: () => getData(infoType, objKey, element, className, currentPage[infoType])});
+                    {className: 'btn btn-danger my-4'},
+                    {click: () => getData(infoType, objKey, element, className, currentPage[infoType], dataTypes)});
             } else {
-                createElement('p', element, 'No more data available.', { className: 'no-data-text' });
+                  createElement('p', element, 'No more data available.', {className: 'no-data-text'});
             }
-            //ADDING CLASS IN ORDER TO REMOVE IT LATER WHEN TOGGLING BUTTONS
+
             addShowClass(element, className);
-            //REQUEST IS COMPLETED. NEXT REQUEST CAN BE MADE
             isLoading[infoType] = false;
-            //INCREASING PAGE NUMBER WHEN WE CLICK AGAIN 'SHOW MORE'
             currentPage[infoType]++;
         })
 }
-
 function createModal () {
-    const modal = createElement('div', '#main-section', '', {id: 'myModal', className: 'modal'});
+    const modal = createElement('div', '#main-section', '', {id: 'myModal', className: 'modal','aria-hidden':"true"});
     const modalDialog = createElement('div', modal, '', {className: 'modal-dialog'});
     const modalContent = createElement('div', modalDialog, '', {className: 'modal-content'});
 
-    const modalHeader = createElement('div', modalContent, '', {className: 'modal-header'});
-    createElement('h5', modalHeader, 'Brief information about', {className: 'modal-title'});
+    const modalHeader = createElement('div', modalContent, '', {className: 'modal-header d-flex justify-content-center', id: 'modalTitle'});
+    createElement('h5', modalHeader, '', {className: 'modal-title'});
     createElement('button', modalHeader, '', {type: 'button', className: 'btn-close', 'data-bs-dismiss': 'modal', 'aria-label': 'close'});
 
-    const modalBody = createElement('div', modalContent, '', {className: 'modal-body'});
-    createElement('p', modalBody, '', {id: 'modal-info'});
+    const modalBody = createElement('div', modalContent, '', {id: 'modal-desc', className: 'modal-body'});
+    createElement('ol', modalBody, '', {id: 'modal-info', className: 'd-flex flex-column'});
 
     const modalFooter = createElement('div', modalContent, '', {className: 'modal-footer'});
     createElement('button', modalFooter, 'OK', {type: 'button', className: 'btn btn-success', 'data-bs-dismiss': 'modal'});
 }
-
-function showModal () {
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'));
-    myModal.show();
-}
-
-function showDetailedData() {
-    const items = document.querySelectorAll('.object__item');
-
-    items.forEach(item => {
-        item.addEventListener('click', () => {
-            const objectInfo = item.dataset.info;
-            showModal();
-        });
-    });
-}
-
-
-
-
-
-
-
-
 
 
 
