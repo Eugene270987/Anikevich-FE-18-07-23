@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OOP. Start</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main id="main">
+    <div id="wrapper" class="container-fluid d-flex flex-column">
+        <form id="userForm" class="d-flex flex-column">
+            <fieldset class="d-flex flex-column">
+                <legend class="text-center">Please, fill in the following fields!</legend>
+                <div id="name-error" class="mb-4">
+                    <label class="form-label" for="nameInput">Name</label>
+                    <input type="text" name="name" class="form-control info" id="nameInput" placeholder="Enter your name">
+                </div>
+                <div id="surname-error" class="mb-4">
+                    <label class="form-label" for="surnameInput">Surname</label>
+                    <input type="text" name="surname" class="form-control info" id="surnameInput" placeholder="Enter your surname">
+                </div>
+                <div id="age-error" class="mb-4">
+                    <label class="form-label" for="ageInput">Age</label>
+                    <input type="text" name="age" class="form-control info" id="ageInput" placeholder="Enter your age">
+                </div>
+                <div id="exp-error" class="mb-4">
+                    <label class="form-label" for="expInput">Experience</label>
+                    <input type="text" name="experience" class="form-control info" id="expInput" placeholder="Enter your experience">
+                </div>
+            </fieldset>
+            <button type="button" id="btn-user-confirm" class="btn btn-success align-self-center" data-bs-target="#exampleModal">CONFIRM AND SHOW DATA</button>
+        </form>
+
+        <form id="carForm" class="visually-hidden d-flex flex-column">
+            <fieldset class="d-flex flex-column">
+                <legend class="text-center">Please, enter the data about your car!</legend>
+                <div id="brand-error" class="mb-4">
+                    <label class="form-label" for="brandInput">Car brand</label>
+                    <input type="text" name="brand" class="form-control info" id="brandInput" placeholder="Enter car brand">
+                </div>
+                <div id="color-error" class="mb-4">
+                    <label class="form-label" for="colorInput">Car color</label>
+                    <input type="text" name="color" class="form-control info" id="colorInput" placeholder="Enter car color">
+                </div>
+                <div id="year-error" class="mb-4">
+                    <label class="form-label" for="yearInput">Manufactured: year</label>
+                    <input type="text" name="year" class="form-control info" id="yearInput" placeholder="Enter the year">
+                </div>
+                <div id="country-error" class="mb-4">
+                    <label class="form-label" for="countryInput">Country</label>
+                    <input type="text" name="country" class="form-control info" id="countryInput" placeholder="Enter the country">
+                </div>
+            </fieldset>
+            <button type="button" id="btn-car-confirm" class="btn btn-success align-self-center" data-bs-target="#exampleModal">CONFIRM AND SHOW ALL DATA</button>
+        </form>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title text-center fs-5" id="exampleModalLabel">Here you can see your data: </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-close" class="btn btn-success" data-bs-dismiss="modal">Great! Follow next step!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/User.js"></script>
+<script src="js/Car.js"></script>
+<script src="js/data.js"></script>
+<script src="js/domHelpers.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
