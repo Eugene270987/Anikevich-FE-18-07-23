@@ -1,17 +1,14 @@
 'use strict'
 /*
-    Создать сущность человека:-----------
+    Создать сущность человека:-----------DONE
 - имя---DONE
 - возраст---DONE
 - Метод вывода данных на страницу ---DONE
-
-
     Создать сущность автомобиля:------------DONE
-
 - Характеристики автомобиля отдельными свойствами---DONE
-    Методы:
-- Вывода на экран данных об этом автомобиле на страницу
-- Присвоения этому автомобилю объекта владельца
+    Методы:----DONE
+- Вывода на экран данных об этом автомобиле на страницу ----DONE
+- Присвоения этому автомобилю объекта владельца ----DONE
 - Все данные о человеке и об автомобиле получать от пользователя (через form inputs). ---DONE
 - Реализовать необходимые проверки на корректность ввода (пустые поля, возраст >18 для человека). ---DONE
 */
@@ -38,16 +35,25 @@ document.getElementById('btn-close').addEventListener('click', event => {
 })
 
 document.getElementById('btn-car-confirm').addEventListener('click', event => {
-    const isValid = validateForm(carRegExps, carFormElements, 'btn-car-confirm');
-    if (isValid) {
+    const isUserValid = validateForm(userRegExps, userFormElements, 'btn-car-confirm');
+    const isCarValid = validateForm(carRegExps, carFormElements, 'btn-car-confirm');
+    if (isUserValid && isCarValid) {
+        const name = userFormElements.name.value;
+        const surname = userFormElements.surname.value;
+        const age = userFormElements.age.value;
+        const experience = userFormElements.experience.value;
+
         const brand = carFormElements.brand.value;
         const color = carFormElements.color.value;
         const year = carFormElements.year.value;
         const country = carFormElements.country.value;
 
+        const user = new User(name, surname, age, experience);
         const car = new Car(brand, color, year, country);
 
-        displayCarData(car);
+        const person = new Person(user, car);
+
+        displayPersonData(person);
 
         const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
         myModal.show();
