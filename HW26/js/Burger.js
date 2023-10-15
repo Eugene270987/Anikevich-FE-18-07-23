@@ -1,72 +1,98 @@
 'use strict'
-
 class Burger {
-    constructor(size, stuffing, quantity) {
-        this.size = size;
-        this.stuffing = [];
-        this.toppings = [];
-        this.quantity = quantity;
+    constructor(size) {
+        this.params = {
+            size: size,
+            topping: [],
+        }
     }
 
-    static SIZE_SMALL = {
+    static SIZE_MINI = {
+        name: 'SIZE_MINI',
         price: 50,
         calories: 20
-    };
+    }
 
-    static SIZE_BIG = {
+    static SIZE_GIANT = {
+        name: 'SIZE_GIANT',
         price: 100,
         calories: 40
-    };
+    }
 
     static STUFFING_CHEESE = {
+        name: 'STUFFING_CHEESE',
         price: 10,
         calories: 20
     }
 
-    static SIZE_SALAD = {
+    static STUFFING_SALAD = {
+        name: 'STUFFING_SALAD',
         price: 20,
         calories: 5
-    };
+    }
 
-    static SIZE_POTATO = {
+    static STUFFING_POTATO = {
+        name: 'STUFFING_POTATO',
         price: 15,
         calories: 10
-    };
-
-    static TOPPING_MAYO = {
-        price: 20,
-        calories: 5
     }
 
     static TOPPING_SPICES = {
+        name: 'TOPPING_SPICES',
         price: 15,
         calories: 0
-    };
-
-    addTopping(topping, quantity = 1) {
-        for (let i = 0; i < quantity; i++) {
-            this.toppings.push(topping);
-        }
     }
 
-    setQuantity(quantity) {
-        this.quantity = quantity;
+    static TOPPING_MAYO = {
+        name: 'TOPPING_MAYO',
+        price: 20,
+        calories: 5
     }
 
-    calculatePrice () {
-        let price = (this.size.price + this.stuffing.price) * this.quantity;
-        for (const topping of this.toppings) {
-            price += topping.price;
-        }
-        return price;
+    addTopping (topping) {
+        const selectedTopping = this.params.topping;
+        selectedTopping.push(topping);
     }
 
-    calculateCalories () {
-        let calories = (this.size.calories + this.stuffing.calories) * this.quantity;
-        for (const topping of this.toppings) {
-            calories += topping.calories;
-        }
-        return calories;
+    showPrice () {
+        const selectedParams = this.params;
+        let totalSum = 0;
+        selectedParams.topping.forEach(topping => {
+            totalSum += topping.price;
+        });
+        return selectedParams.size.price + totalSum + ' UAH';
+    }
+
+    showCalories () {
+        const selectedParams = this.params;
+        let totalAmountOfCalories = 0;
+        selectedParams.topping.forEach(topping => {
+            totalAmountOfCalories += topping.calories;
+        })
+        return selectedParams.size.calories + totalAmountOfCalories + ' Calories';
     }
 }
 
+//Переписать функции в обьекте с учетом возможного количества!
+
+/*
+setQuantity(quantity) {
+    this.quantity = quantity;
+}
+
+calculatePrice () {
+    let price = (this.size.price + this.stuffing.price) * this.quantity;
+    for (const topping of this.toppings) {
+        price += topping.price;
+    }
+    return price;
+}
+
+calculateCalories () {
+    let calories = (this.size.calories + this.stuffing.calories) * this.quantity;
+    for (const topping of this.toppings) {
+        calories += topping.calories;
+    }
+    return calories;
+}
+}*/
