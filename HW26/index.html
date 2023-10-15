@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hamburger</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main id="main">
+    <div id="wrapper">
+        <form id="userForm" class="d-flex flex-column">
+            <fieldset class="d-flex flex-column">
+                <legend class="text-center">Make your burger yourself!</legend>
+
+                <div id="size-error" class="mb-4">
+                    <label class="form-label" for="burger-size">Size</label>
+                    <select name="burger" class="form-select form-select-lg mb-3" aria-label="Large select example" id="burger-size">
+                        <option selected>Choose the size of your burger</option>
+                        <option name="burger-mini" value="burger-mini">Burger-Mini</option>
+                        <option name="burger" value="burger-giant">Giant-Burger</option>
+                    </select>
+                </div>
+
+                <div id="quantity-error" class="error">
+                    <div class="d-flex quantity-item-wrapper field-wrapper">
+                        <label class="form-label" for="burgerQuantity">Burger quantity</label>
+                        <input class="form-control" type="number" name="quantity" id="burgerQuantity" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stuff-error" class="error mb-4 d-flex flex-column">
+
+                    <div class="d-flex stuff-item-wrapper field-wrapper">
+                        <label class="form-label" for="cheeseStuff">Add some cheese</label>
+                        <input class="form-control" type="number" name="cheese" id="cheeseStuff" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex stuff-item-wrapper field-wrapper">
+                        <label class="form-label" for="saladStuff">Add some salad</label>
+                        <input class="form-control" type="number" name="salad" id="saladStuff" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex stuff-item-wrapper field-wrapper">
+                        <label class="form-label" for="potatoStuff">Add some potato</label>
+                        <input class="form-control" type="number" name="potato" id="potatoStuff" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="topping-error" class="error mb-4 d-flex flex-column">
+
+                    <div class="d-flex topping-item-wrapper field-wrapper">
+                        <label class="form-label" for="spicesTopping">Add spices</label>
+                        <input class="form-control" type="number" name="spices" id="spicesTopping" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex topping-item-wrapper field-wrapper">
+                        <label class="form-label" for="mayoTopping">Add mayo</label>
+                        <input class="form-control" type="number" name="mayo" id="mayoTopping" value="0" min="0" max="3" step="1">
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-danger">Reset</button>
+                            <button type="button" class="btn btn-warning">Delete</button>
+                            <button type="button" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <button type="button" id="btn-data-confirm" class="btn btn-primary align-self-center" data-bs-target="#exampleModal">SAVE AND SHOW DATA</button>
+        </form>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title text-center fs-5" id="exampleModalLabel">Here you can see your order: </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-close" class="btn btn-primary" data-bs-dismiss="modal">Click to BUY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/Burger.js"></script>
+<script src="js/domHelpers.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

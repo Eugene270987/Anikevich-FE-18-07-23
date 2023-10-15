@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#wrapper{
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 15px;
+    gap: 20px;
+}
+
+form{
+    width: inherit;
+}
+
+label{
+    font-size: 20px;
+    width: 250px;
+}
+
+fieldset{
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+legend{
+    font-size: 20px;
+}
+
+.form-check{
+    gap: 30px;
+}
+
+input{
+    max-width: 350px;
+}
+
+.field-wrapper{
+    margin-bottom: 10px;
+}
+
+#stuff-error,
+#topping-error,
+#quantity-error{
+    gap: 30px;
+}
+
+.stuff-item-wrapper,
+.topping-item-wrapper,
+.quantity-item-wrapper{
+    gap: 10px;
+}
+
+.btn-group{
+    gap: 10px;
+}
+
