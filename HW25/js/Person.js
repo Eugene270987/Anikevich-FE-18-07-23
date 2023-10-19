@@ -1,11 +1,10 @@
 'use strict'
-
 class Person {
-    constructor(fullName) {
-        this.fullName = fullName;
+    constructor(name) {
+        this.name = name;
     }
     showInfo() {
-        console.log('Name: ' + this.fullName);
+        const personInfo = createElement(`div`, `.house-card-wrapper`, ``,{className: 'name-block'});
+        personInfo.innerHTML = `Name: ${this.name}`;
     }
-    //Это уберем когда будем создавать проект
 }

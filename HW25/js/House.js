@@ -1,24 +1,25 @@
 'use strict'
-
 class House {
-    /**
-     *
-     * @param {string} address
-     * @param {number} floors
-     * @param {Apartment[]} apartments
-     */
-    constructor(address, floors, apartments) {
+    constructor(address, apartmentsNumber) {
         this.address = address;
-        this.floors = floors;
-        this.apartments = apartments;
+        this.apartmentsNumber = apartmentsNumber;
+        this.apartments = [];
     }
 
-    showInfo () {
-        console.log(`
-            Address: ${this.address}
-            Floors: ${this.floors}
-            Apartments: 
-        `)
+    addApartment(apartment) {
+        this.apartments.push(apartment);
+    }
+    showInfo() {
+        const houseInfo =document.querySelector(`.house-card-wrapper`);
+        houseInfo.classList.remove(`visually-hidden`);
+
+        houseInfo.innerHTML =
+        `<h2>House Information:</h2>
+        <ul>
+          <li>Address: ${this.address}</li>
+          <li>ApartmentsNumber: ${this.apartmentsNumber}</li>
+          <li>Apartments:</li>
+        </ul>`
         this.apartments.forEach(apartment => apartment.showInfo());
     }
 }

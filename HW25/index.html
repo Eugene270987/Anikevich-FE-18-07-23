@@ -5,60 +5,37 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>House Instances</title>
+    <title>Create house</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main id="main">
-        <div id="wrapper" class="container-fluid d-flex flex-column">
-            <form id="create-house" class="d-flex flex-column justify-content-center align-items-center">
-                <h1 class="intro__title text-center">Let's create our house!!!</h1>
-                <button type="button" id="btn-create-house" class="btn btn-success align-self-center">Create House</button>
-            </form>
+<div class="container">
 
-            <form id="fill-house" class="d-flex flex-column visually-hidden">
-                <fieldset class="d-flex flex-column">
-                    <legend class="text-center">Please, fill in the following fields!</legend>
-                    <div id="address-error" class="mb-4">
-                        <label class="form-label" for="addressInput">Address</label>
-                        <input type="text" name="address" class="form-control info" id="addressInput" placeholder="Enter the address">
-                    </div>
-                    <div id="floors-error" class="mb-4">
-                        <label class="form-label" for="floorsInput">Number of floors</label>
-                        <input type="text" name="floors" class="form-control info" id="floorsInput" placeholder="Enter the number of floors (up to 10)">
-                    </div>
-                    <div id="apartments-error" class="mb-4">
-                        <label class="form-label" for="apartmentsInput">Number of apartments</label>
-                        <input type="text" name="apartments" class="form-control info" id="apartmentsInput" placeholder="Enter the number of apartments">
-                    </div>
-                </fieldset>
-                <button type="button" id="btn-house-confirm" class="btn btn-success align-self-center">Next Step</button>
-            </form>
+    <div class="house-form-wrapper d-flex flex-column justify-content-center">
+        <h1 class="text-center">Let's create a house!</h1>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title text-center fs-5" id="exampleModalLabel">Here you can see your data: </h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+        <form id="houseForm" class="d-flex flex-column">
+            <label class="mb-3" for="address">Add address: </label>
+            <input class="mb-3" type="text" id="address" name="house">
+            <label class="mb-3" for="apartmentsNumber">Add apartments number: </label>
+            <input class="mb-3" type="number"  id="apartmentsNumber" name="house">
+            <button type="button" id="createHouse" class="btn btn-primary mt-3">Next Step</button>
+        </form>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" id="btn-close" class="btn btn-success" data-bs-dismiss="modal">Congratulations! Everything is over!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    </div>
+
+    <div class="apartments-form-wrapper d-flex flex-column"></div>
+
+    <div class="people-form-wrapper d-flex flex-column"></div>
+
+    <div class="house-card-wrapper d-flex flex-column visually-hidden"></div>
+
+</div>
+
 
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/domHelpers.js"></script>
-<script src="js/createForms.js"></script>
-<script src="js/data.js"></script>
 <script src="js/Person.js"></script>
 <script src="js/Apartment.js"></script>
 <script src="js/House.js"></script>

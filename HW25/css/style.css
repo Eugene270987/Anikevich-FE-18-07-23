@@ -3,18 +3,30 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
-
-#wrapper{
-    max-width: 1240px;
+.container{
+    max-width: 1440px;
     margin: 0 auto;
     padding: 15px;
-    gap: 20px;
 }
 
-form{
-    width: inherit;
+.house-form-wrapper,
+.apartments-form-wrapper,
+.people-form-wrapper,
+.house-card-wrapper{
+    max-width: 600px;
+    margin: 0 auto;
 }
 
+label {
+    width: 200px;
+}
+
+.error{
+    border: 1px solid red;
+}
+.house-card-wrapper ul{
+    font-size: 20px;
+}
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -29,7 +41,4 @@ form{
     overflow: hidden;
 }
 
-#create-house{
-    min-height: 100vh;
-    gap: 20px;
-}
+

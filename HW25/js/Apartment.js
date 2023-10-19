@@ -1,24 +1,18 @@
 'use strict'
 class Apartment {
-    /**
-     * JSDoc
-     * @param {number} number
-     * @param {number} roomsAmount
-     * @param {Person[]} people
-     */
-    constructor(number, roomsAmount, people) {
-        this.number = number;
-        this.roomsAmount = roomsAmount;
-        this.people = people;
+    constructor(apartmentNumber, numberOfRooms) {
+        this.apartmentNumber = apartmentNumber;
+        this.numberOfRooms = numberOfRooms;
+        this.residents = [];
     }
-
     showInfo() {
-        console.log(`
-            Number: ${this.number}
-            Rooms: ${this.roomsAmount}
-            People: 
-        `);
-        this.people.forEach(person => person.showInfo());
+        const apartmentInfo = createElement(`div`, '.house-card-wrapper', ``);
+        apartmentInfo.innerHTML =
+            `<ul>
+                <li>Apartment number# ${this.apartmentNumber}</li>
+                <li>Number of rooms: ${this.numberOfRooms}</li>
+                <li>Residents: </li>
+            </ul>`
+        this.residents.forEach(person => person.showInfo());
     }
-    //Также потом удалим, потому что нам не нужен вывод в консоль!
 }
