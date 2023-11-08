@@ -58,7 +58,6 @@ function displayCarData(car) {
     const modalBody = document.querySelector('.modal-body');
     modalBody.innerHTML = car.generateCarInfo();
 }
-
 function displayPersonData(person) {
     const modalBody = document.querySelector('.modal-body');
     modalBody.innerHTML = person.generateAllInfo();

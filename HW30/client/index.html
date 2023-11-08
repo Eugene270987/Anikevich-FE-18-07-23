@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cafe</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<main id="wrapper">
+    <section id="categories">
+        <h1>Hey, help yourself!</h1>
+        <div id="menu"></div>
+    </section>
+
+    <section id="products">
+        <div id="content">
+            <div id="drinks"></div>
+            <div id="burgers"></div>
+        </div>
+    </section>
+
+    <section id="userData">
+        <div id="form-wrapper">
+
+            <form id="userForm" class="d-flex flex-column visually-hidden">
+                <fieldset class="d-flex flex-column">
+                    <legend class="text-center">Please, fill in the following fields!</legend>
+                    <div id="name-error" class="mb-4">
+                        <label class="form-label" for="nameInput">Name</label>
+                        <input type="text" name="name" class="form-control info" id="nameInput" placeholder="Enter your name">
+                    </div>
+                    <div id="surname-error" class="mb-4">
+                        <label class="form-label" for="surnameInput">Surname</label>
+                        <input type="text" name="surname" class="form-control info" id="surnameInput" placeholder="Enter your surname">
+                    </div>
+                    <div id="number-error" class="mb-4">
+                        <label class="form-label" for="mobileInput">Mobile Number</label>
+                        <input type="text" name="mobile" class="form-control info" id="mobileInput">
+                    </div>
+                </fieldset>
+                <button type="button" id="btn-user-confirm" class="btn btn-success align-self-center" data-bs-target="#exampleModal">CONFIRM AND SHOW DATA</button>
+            </form>
+
+            <form id="pushOrder" class="visually-hidden">
+                <button type="button" id="push-order" class="btn btn-success align-self-center" data-bs-target="#exampleModal">Push your order</button>
+            </form>
+
+        </div>
+    </section>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title text-center fs-5" id="exampleModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 id="modal-text"></h2>
+                    <!--<form id="form" class="was-validated visually-hidden">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="cheese" name="stuffing" required>
+                            <label class="form-check-label" for="cheese">Add Cheese (+10 UAH, +20 calories)</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="salad" name="stuffing" required>
+                            <label class="form-check-label" for="salad">Add Salad (+20 UAH, +5 calories)</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="radio" class="form-check-input" id="potato" name="stuffing" required>
+                            <label class="form-check-label" for="potato">Add potato (+15 UAH, +10 calories)</label>
+                            <div class="invalid-feedback">Please, add stuffing!</div>
+                        </div>
+                        &lt;!&ndash;Topping&ndash;&gt;
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="spices">
+                            <label class="form-check-label" for="spices">Add some spices (+15 UAH, 0 calories)</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="mayo">
+                            <label class="form-check-label" for="mayo">Add some mayo (+20 UAH, +5 calories)</label>
+                        </div>
+
+                        <button class="btn btn-primary" type="button" id="btn-show-order" data-bs-target="#exampleModal">CALCULATE AND SHOW ORDER</button>
+                    </form>-->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-push" class="btn btn-primary" data-bs-dismiss="modal"></button>
+                    <button type="button" id="btn-close" class="btn btn-primary" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="dist/main.js"></script>
+</body>
+</html>

@@ -1,8 +1,14 @@
+
+//---------
 let showCategories = () => {
     for (let categoryKey in categories) {
         const category = categories[categoryKey];
         createElement('div', '#left', category.name, {'data-category': categoryKey})
     }
+    //---------
+
+
+
     myOrders()
 }
 function deleteOrder(delBtn,orderLi){

@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
-
-
-
 const btnConfirm = document.getElementById('btn-data-confirm');
 btnConfirm.addEventListener('click', event => {
     event.preventDefault();

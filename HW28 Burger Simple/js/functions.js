@@ -1,4 +1,8 @@
 'use strict'
+function showModal () {
+    const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    myModal.show();
+}
 function showOrder () {
     const size = getSelectedSize();
     const selectedStuffing = getSelectedStuff();
@@ -17,8 +21,7 @@ function showOrder () {
     priceContainer.textContent = `Price: ${burger.showPrice()}`;
     caloriesContainer.textContent = `Calories: ${burger.showCalories()}`;
 
-    const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-    myModal.show();
+    showModal();
 }
 function handleShowOrder () {
     const getCheckedStuffing = document.querySelector('input[name="stuffing"]:checked');

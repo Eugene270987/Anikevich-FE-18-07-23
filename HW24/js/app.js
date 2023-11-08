@@ -35,6 +35,7 @@ document.getElementById('btn-close').addEventListener('click', event => {
 })
 
 document.getElementById('btn-car-confirm').addEventListener('click', event => {
+    const elements = document.forms[1].elements;
     const isUserValid = validateForm(userRegExps, userFormElements, 'btn-car-confirm');
     const isCarValid = validateForm(carRegExps, carFormElements, 'btn-car-confirm');
     if (isUserValid && isCarValid) {
@@ -57,6 +58,10 @@ document.getElementById('btn-car-confirm').addEventListener('click', event => {
 
         const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
         myModal.show();
+        document.getElementById('btn-car-confirm').style.display = 'none';
+        Array.from(elements).forEach((element) => {
+            element.setAttribute('disabled', 'disabled');
+        });
     }
 })
 

@@ -76,17 +76,9 @@ function increaseQuantity () {
         });
     });
 }
-function calculateOrder () {
-    const formElements = document.forms[0].elements;
-    const burgerType = formElements.burger.value;
-    let size;
-    if (burgerType === 'burger-mini') {
-        size = Burger.SIZE_SMALL;
-    } else if (burgerType === 'burger-giant') {
-        size = Burger.SIZE_BIG;
-    }
 
-    const burger = new Burger(size);
+function calculateOrder () {
+
 }
 
 

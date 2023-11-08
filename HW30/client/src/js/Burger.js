@@ -1,4 +1,5 @@
 'use strict'
+
 class Burger {
     constructor(size) {
         this.params = {
@@ -54,18 +55,12 @@ class Burger {
         selectedTopping.push(topping);
     }
 
-    setQuantity(quantity) {
-        this.quantity = quantity;
-    }
-
     showPrice () {
         const selectedParams = this.params;
         let totalSum = 0;
         selectedParams.topping.forEach(topping => {
-            totalSum += topping.price * this.quantity;
+            totalSum += topping.price;
         });
-        return (this.quantity * selectedParams.size.price) + totalSum + ' UAH';
+        return selectedParams.size.price + totalSum + ' UAH';
     }
 }
-
-
