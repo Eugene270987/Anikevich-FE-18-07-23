@@ -1,0 +1,22 @@
+.footer{
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background: greenyellow;
+}
+
+.container{
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 20px;
+}
+
+.footer__inner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text{
+  font-weight: 700px;
+  font-size: 20px;
+}

@@ -1,0 +1,13 @@
+.sidebar{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: orange;
+  flex-basis: 20%;
+}
+
+.category__list{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  list-style: none;
+}
