@@ -1,5 +1,6 @@
 import './CategoryItem.scss'
 import {useState} from "react";
+
 function CategoryItem({ name, url }) {
     const [isClicked, setIsClicked] = useState(false);
 
