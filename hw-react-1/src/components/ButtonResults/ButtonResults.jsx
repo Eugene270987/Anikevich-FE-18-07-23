@@ -4,28 +4,35 @@ import PropTypes from 'prop-types';
 
 
 export default class ButtonResults extends Component {
-
     state = {
-        winner: null,
+        resultsVisible: false,
     };
 
     showResults = () => {
-        const {votes, candidates} = this.props;
-        const winnerId = Object.keys(votes).reduce((a, b) => votes[a] > votes[b] ? a : b);
-        const winner = candidates.find(candidate => candidate.id === parseInt(winnerId));
-
-        this.setState({ winner });
-    }
+        this.setState({ resultsVisible: true });
+    };
 
     render() {
-        const {buttonText} = this.props;
-        const {winner} = this.state;
+        const { buttonText, candidates, votes } = this.props;
+        const { resultsVisible } = this.state;
+
+        let results = null;
+        if (resultsVisible) {
+            results = candidates.map(candidate => (
+                <div key={candidate.id}>
+                    <p>{`${candidate.title}: ${votes[candidate.id]} votes`}</p>
+                </div>
+            ));
+        }
+
         return (
             <div>
-                <button type="button" className="btn-show" onClick={this.showResults}>{buttonText}</button>
-                {winner && <h2 className="winner-title">{winner.title} has won</h2>}
+                <button type="button" className="btn-show" onClick={this.showResults}>
+                    {buttonText}
+                </button>
+                {results && <div>{results}</div>}
             </div>
-        )
+        );
     }
 }
 
