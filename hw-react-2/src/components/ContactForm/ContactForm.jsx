@@ -1,19 +1,30 @@
 import './ContactForm.scss';
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 function ContactForm ({onAddContact}) {
     const nameRef = useRef('');
     const userNameRef = useRef('');
     const phoneNumberRef = useRef('');
-
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSaveContact = () => {
+        const name = nameRef.current.value;
+        const username = userNameRef.current.value;
+        const phone = phoneNumberRef.current.value;
+
+        if (!name || !username || !phone) {
+            setError('Please fill all the fields below!!!');
+            return;
+        }
+
+        setError('');
+
         onAddContact({
-            name: nameRef.current.value,
-            username: userNameRef.current.value,
-            phone: phoneNumberRef.current.value
-        })
+            name,
+            username,
+            phone,
+        });
 
         navigate('/ContactList');
     }
@@ -26,6 +37,7 @@ function ContactForm ({onAddContact}) {
         <form className="form">
             <fieldset className="form__inner">
                 <legend className="form__title">Fill in the following form</legend>
+                {error && <p className="error__message">{error}</p>}
                 <div className="input__wrapper">
                     <label className="input__label" htmlFor="name">Name:</label>
                     <input type="text" ref={nameRef} id="name"/>
