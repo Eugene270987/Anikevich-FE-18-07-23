@@ -1,17 +1,18 @@
 import './Contact.scss'
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-function Contact ({contact, onDeleteContact}) {
-    const [show, setShow] = useState(false);
+import CreateModal from '../CreateModal/CreateModal';
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+function Contact ({contact, onDeleteContact}) {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
 
     const handleDeleteContact = () => {
         onDeleteContact(contact.name);
-        handleClose();
-    }
+        handleCloseModal();
+    };
+
     return (
         <div>
             <div key={contact.name}>
@@ -19,25 +20,11 @@ function Contact ({contact, onDeleteContact}) {
                     <li>Name: {contact.name}</li>
                     <li>Username: {contact.username}</li>
                     <li>Phone: {contact.phone}</li>
-                    <button className="btn-del" type="button" onClick={handleShow}>Delete</button>
+                    <button className="btn-del" type="button" onClick={handleShowModal}>Delete</button>
                 </ul>
             </div>
 
-            {/*Как вариант можно вынести в отдельный компонент модалку, и импортировать сюда этот компонент */}
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Do you really want to delete this contact?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        No
-                    </Button>
-                    <Button variant="primary" onClick={handleDeleteContact}>
-                        Yes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+           <CreateModal show={showModal} onClose={handleCloseModal} onDelete={handleDeleteContact}></CreateModal>
         </div>
     )
 }
