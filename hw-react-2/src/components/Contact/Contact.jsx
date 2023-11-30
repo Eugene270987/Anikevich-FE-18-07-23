@@ -1,17 +1,12 @@
-import './Contact.scss'
+import './Contact.scss';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../store/contacts/action';
 import CreateModal from '../CreateModal/CreateModal';
 
-function Contact ({contact, onDeleteContact}) {
+function Contact({ contact }) {
     const [showModal, setShowModal] = useState(false);
-
-    const handleCloseModal = () => setShowModal(false);
-    const handleShowModal = () => setShowModal(true);
-
-    const handleDeleteContact = () => {
-        onDeleteContact(contact.name);
-        handleCloseModal();
-    };
+    const dispatch = useDispatch();
 
     return (
         <div>
@@ -20,13 +15,22 @@ function Contact ({contact, onDeleteContact}) {
                     <li>Name: {contact.name}</li>
                     <li>Username: {contact.username}</li>
                     <li>Phone: {contact.phone}</li>
-                    <button className="btn-del" type="button" onClick={handleShowModal}>Delete</button>
+                    <button className="btn-del" type="button" onClick={() => setShowModal(true)}>
+                        Delete
+                    </button>
                 </ul>
             </div>
 
-           <CreateModal show={showModal} onClose={handleCloseModal} onDelete={handleDeleteContact}></CreateModal>
+            <CreateModal
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                onDelete={() => {
+                    dispatch(deleteContact(contact.name));
+                    setShowModal(false);
+                }}
+            ></CreateModal>
         </div>
-    )
+    );
 }
 
 export default Contact;
