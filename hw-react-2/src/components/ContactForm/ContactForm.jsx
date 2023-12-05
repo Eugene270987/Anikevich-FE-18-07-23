@@ -2,9 +2,9 @@ import './ContactForm.scss';
 import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../store/contacts/action';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
+import {addItem} from "../../store/contacts/contactSlice";
 
 const formElementsConfig = {
     name: {
@@ -50,7 +50,11 @@ function ContactForm() {
         },
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
-            dispatch(addContact(values));
+            const newContact = {
+                id: Date.now(),
+                ...values,
+            };
+            dispatch(addItem(newContact));
             navigate('/ContactList');
         },
     });

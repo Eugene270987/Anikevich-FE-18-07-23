@@ -2,18 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
-import {combineReducers, createStore} from "redux";
-import {Provider} from "react-redux";
-import contactReducer from "./store/contacts/contactReducer";
+import {configureStore} from '@reduxjs/toolkit';
+import {Provider} from 'react-redux';
+import contactSlice from './store/contacts/contactSlice';
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const reducers = combineReducers({
-    contacts: contactReducer,
+const store = configureStore({
+    reducer: {
+        contacts: contactSlice,
+    },
 })
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <Provider store={store}>

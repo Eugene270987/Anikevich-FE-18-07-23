@@ -6,26 +6,23 @@ import ContactList from '../ContactList/ContactList';
 import ContactForm from '../ContactForm/ContactForm';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact } from '../../store/contacts/action';
+import {addItem, contactsAdapter, deleteItem, fetchContacts} from "../../store/contacts/contactSlice";
+
 
 function App() {
     const dispatch = useDispatch();
-    const contacts = useSelector((state) => state.contacts.data);
+    const contacts = useSelector((state) => contactsAdapter.getSelectors().selectAll(state.contacts));
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then((response) => response.json())
-            .then((data) => {
-                data.forEach((contact) => dispatch(addContact(contact)));
-            });
+        dispatch(fetchContacts());
     }, [dispatch]);
 
     const handleContactAdd = (newContact) => {
-        dispatch(addContact(newContact));
+        dispatch(addItem(newContact));
     };
 
-    const handleDeleteContact = (contactName) => {
-        dispatch(deleteContact(contactName));
+    const handleDeleteContact = (contactId) => {
+        dispatch(deleteItem(contactId));
     };
 
     return (
@@ -37,13 +34,11 @@ function App() {
                     <Route path="/ContactForm" element={<ContactForm onAddContact={handleContactAdd} />} />
                     <Route
                         path="/ContactList"
-                        element={
-                            !!contacts.length ? (
-                                <ContactList contacts={contacts} onDelete={handleDeleteContact} />
-                            ) : (
-                                <h1 className="no-contact__title">No contacts yet...</h1>
-                            )
-                        }
+                        element={contacts && contacts.length ? (
+                            <ContactList contacts={contacts} onDelete={handleDeleteContact} />
+                        ) : (
+                            <h1 className="no-contact__title">No contacts yet...</h1>
+                        )}
                     />
                 </Routes>
             </Router>

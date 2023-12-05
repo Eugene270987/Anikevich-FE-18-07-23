@@ -1,8 +1,8 @@
 import './Contact.scss';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../store/contacts/action';
 import CreateModal from '../CreateModal/CreateModal';
+import {deleteItem} from '../../store/contacts/contactSlice';
 
 function Contact({ contact }) {
     const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,7 @@ function Contact({ contact }) {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 onDelete={() => {
-                    dispatch(deleteContact(contact.name));
+                    dispatch(deleteItem(contact.id));
                     setShowModal(false);
                 }}
             ></CreateModal>
