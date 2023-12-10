@@ -1,0 +1,67 @@
+.form{
+  &__inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+  &__title{
+    text-align: center;
+  }
+}
+
+.input__wrapper{
+  max-width: 500px;
+  width: 100%;
+}
+
+.input__label{
+  width: 150px;
+}
+
+.button__wrapper{
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.input__wrapper{
+  display: flex;
+  max-width: 400px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+input, label{
+  display: block;
+}
+
+.btn-cancel,
+.btn-save{
+  cursor: pointer;
+  padding: 10px 15px;
+  width: 150px;
+  border-radius: 10px;
+  transition: all .3s ease-in-out;
+  &:hover{
+    background: brown;
+  }
+}
+
+.btn-save{
+  background: gold;
+}
+
+.btn-cancel{
+  background: palegoldenrod;
+}
+
+.error{
+  color: red;
+}
